@@ -22,7 +22,7 @@
 
 ?>
 
-    <main id = "mainNotificaciones">
+    <main id = "mainNotificaciones"> 
         <div id="contenedorBuscadorNotificaciones">
             <i class="fa-solid fa-magnifying-glass"></i>
             <input type="text" placeholder="Buscar notificaciones"></input>
@@ -35,8 +35,12 @@
     
 
                 <?php
+                    if($notificaciones == null){
+                        echo("NO SE HAN ENCONTRADO NOTIFICACIONES");
 
-                    foreach ($notificaciones as $notificacion) {
+                    }
+                    else{
+                        foreach ($notificaciones as $notificacion) {
         
                         echo '<div class = "notificacion">';
                         echo '<h3>' . $notificacion->getNombre() . '</h3>';
@@ -44,10 +48,11 @@
                         echo '<a class="leerMas">Leer más</a>';
                         echo '</div>';
 
+                        }
                     }
 
                 ?>
-
+            
 
         </div>
         <div id="paginacion">
