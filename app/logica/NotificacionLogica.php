@@ -32,7 +32,7 @@ class NotificacionLogica{
         
     }*/
 
-    function obtenerNotificaciones (int $limite, int $pagina) : array {
+    function obtenerNotificaciones (int $limite, int $pagina) : ?array {
 
         $desplazamiento = ($pagina - 1) * $limite;
 

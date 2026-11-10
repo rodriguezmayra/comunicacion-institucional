@@ -1,56 +1,52 @@
 <?php
 
-    /*namespace app\persistencia;
+/*namespace app\persistencia;
 
-    use app\persistencia\Conexion;
-    use app\logica\entidades\NotificacionEntidad;
+use app\persistencia\Conexion;
+use app\logica\entidades\NotificacionEntidad;
 
-    require_once __DIR__ . "\..\config\autoload.php";
-    */
+require_once __DIR__ . "\..\config\autoload.php";
+*/
 
+require_once __DIR__ . "/Conexion.php";
+require_once __DIR__ . "/DAOGenerico.php";
 
-    require_once __DIR__ . "/../persistencia/Conexion.php";
+class NotificacionDAO extends DAOGenerico{
 
+    
 
-    //Esta clase será modificada para que herede de DAOGenerico
+    function getTabla(): string{
+        return "notificaciones";
 
-    class NotificacionDAO {
+    }
 
+    function getColumnas(): array{
+        return ["identificador", "nombre", "descripcion", "publico"];
 
-        private Conexion $conexion;
-            
+    }
 
-        public function __construct(){
-            
-            $this->conexion = Conexion::getInstancia();
-            
-        }
-       
+    function getClavePrimaria(): string{
+        return "identificador";
 
-        function insertarNotificacion (NotificacionEntidad $notificacion){
-        
-            $identificador = $notificacion->getIdentificador();
-            $nombre = $notificacion->getNombre();
-            $descripcion = $notificacion->getDescripcion();
-            $publico = $notificacion->getPublico();
-            
-            $sql = "INSERT INTO notificaciones (identificador, nombre, descripcion, publico) VALUES (?, ?, ?, ?)";  
+    }
 
-            $conexion = $this->conexion->getConexion(); 
+    public function ObtenerNotificacion($identificador) : ?array{
 
-            $sentencia = $conexion->prepare($sql);
-            $sentencia->bind_param("isss", $identificador, $nombre, $descripcion, $publico);
-            $sentencia ->execute();
+        return $this->obtenerFila($identificador);
 
-            $sentencia->close();
-            
-        }
+    }
 
-        function obtenerNotificaciones (int $limite, int $desplazamiento): array {
+    public function InsertarNotificacion($identificador): bool {
+
+        return $this->insertarFila($datos);
+
+    }
+
+     function obtenerNotificaciones (int $limite, int $desplazamiento): array {
 
             $sql = "SELECT identificador, nombre, descripcion, publico FROM notificaciones ORDER BY identificador DESC LIMIT ? OFFSET ?";
 
-            $conexion = $this->conexion->getConexion();
+            $conexion = $this->conexion;
 
             $sentencia = $conexion->prepare($sql);
             $sentencia->bind_param("ii", $limite, $desplazamiento);
@@ -71,7 +67,6 @@
 
         }
 
-        
-    }
+}
 
 ?>

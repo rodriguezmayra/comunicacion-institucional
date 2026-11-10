@@ -13,7 +13,7 @@ class NotificacionPresentacion{
 
 
     // Es necesario realizar comprobaciones respecto a la paginación
-    public function obtenerNotificaciones (int $limite, int $pagina): array {
+    public function obtenerNotificaciones (int $limite, int $pagina): ?array {
 
         if ($pagina < 1 || $limite < 1) {
             $pagina = 1;
