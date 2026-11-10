@@ -35,7 +35,7 @@
     
 
                 <?php
-                    if($notificaciones == null){
+                    if($notificaciones === null){
                         echo("NO SE HAN ENCONTRADO NOTIFICACIONES");
 
                     }

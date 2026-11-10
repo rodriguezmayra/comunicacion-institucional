@@ -42,10 +42,30 @@ class NotificacionDAO extends DAOGenerico{
 
     }
 
-   
+     function obtenerNotificaciones (int $limite, int $desplazamiento): array {
 
+            $sql = "SELECT identificador, nombre, descripcion, publico FROM notificaciones ORDER BY identificador DESC LIMIT ? OFFSET ?";
 
+            $conexion = $this->conexion;
 
+            $sentencia = $conexion->prepare($sql);
+            $sentencia->bind_param("ii", $limite, $desplazamiento);
+            $sentencia->execute();
+
+            $resultado = $sentencia->get_result();
+
+            $notificaciones = array();
+
+            while ($fila = $resultado->fetch_assoc()) {
+                $notificacion = new NotificacionEntidad($fila["identificador"], $fila["nombre"], $fila["descripcion"], $fila["publico"]);
+                $notificaciones[] = $notificacion;
+            }
+
+            $sentencia->close();
+
+            return $notificaciones;
+
+        }
 
 }
 
