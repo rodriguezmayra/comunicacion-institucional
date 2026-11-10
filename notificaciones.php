@@ -26,8 +26,7 @@
         <div id="contenedorBuscadorNotificaciones">
             <i class="fa-solid fa-magnifying-glass"></i>
             <input type="text" placeholder="Buscar notificaciones"></input>
-            <i class="fa-solid fa-newspaper"></i>
-            <button id="IngresarNotificacion" onclick="window.location.href='crearNotificacion.php';">Agregar Notificacion</button>
+            <a id="newpapers"><i class="fa-solid fa-newspaper" ></i></a>
         </div> 
 
             <div id = "contenedorNotificaciones">
@@ -63,4 +62,55 @@
 
             ?>
     </div>
+
+        <div id="contenedorAgregarNotificacion" class="oculto">
+           
+            <a id="volverAgregarNotificacion"><i class="fa-solid fa-arrow-left"></i></a>
+
+            <label id="NombreLabel" for="NombreNotificacion">
+                Nombre: 
+            </label>
+            <input type="text" id="NombreNotificacion" name="Nombre" required>
+
+            <label id="DescripcionLabel" for="DescripcionNotificacion">
+                Descripcion: 
+            </label>
+            <textarea id="DescripcionNotificacion" name="Descripcion" required rows="4"></textarea>
+
+            <label id="publicoLabel" for="PublicoNotificacion">
+                Publico Objetivo: 
+            </label>
+            <select id="PublicoNotificacion" name="Publico" required>
+                
+                <option value="" disabled selected>Selecciona un público objetivo...</option>
+                <option value="General">General</option>
+                <option value="Usuario">Restringido</option>
+                <option value="Grupo">Grupo</option>
+
+            </select>
+            <div id="opcionesGrupos" class="oculto">
+
+                <select id="grupoSelect" name="Grupo"> 
+
+                    <option value="" disabled selected>Selecciona un grupo...</option>
+                    <option value="MC">Informática</option>
+                    <option value="Gastronomia">Gastronomía</option>
+
+                </select>
+
+                <select id="añoGrupoSelect" name="AñoGrupo"> 
+
+                    <option value="" disabled selected>Selecciona un año...</option>
+                    <option value="1ero">Primero</option>
+                    <option value="2do">Segundo</option>
+                    <option value="3ero">Tercero</option>
+
+                </select>
+                        
+            </div>
+
+            <button id="AgregarNotificacion"    >Agregar Notificacion</button>
+
+        </div>
     </main>
+    <div id="overlayNotificacion"></div>

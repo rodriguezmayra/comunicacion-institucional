@@ -32,7 +32,6 @@ const cerrarSesionA = document.querySelector("#cerrarSesionA");
 const indexMain = document.querySelector("#mainInicio");
 
 
-
 if (horarios && calendario && notificaciones && iniciarSesionA){
 
     document.addEventListener("DOMContentLoaded", async () => {
@@ -66,6 +65,11 @@ if (horarios && calendario && notificaciones && iniciarSesionA){
         calendario.classList.remove("mainActivo");
         calendario.classList.add("bordeBajo");
 
+        inicializarAgregarNotificaciones();
+
+        subopcionesGrupos();
+
+        inicializarExpandirNotificaciones();
 
     });
 
@@ -125,6 +129,12 @@ if (horarios && calendario && notificaciones && iniciarSesionA){
         calendario.classList.remove("mainActivo");
         calendario.classList.add("bordeBajo");
 
+        inicializarAgregarNotificaciones();
+
+        subopcionesGrupos();
+
+        inicializarExpandirNotificaciones();
+
     });
 
     iniciarSesionA.addEventListener("click", async () => {
@@ -152,4 +162,105 @@ if (horarios && calendario && notificaciones && iniciarSesionA){
 }
 else {
     console.log("no funciona");
+}
+
+function inicializarAgregarNotificaciones (){
+    const botonAgregarNotificacion = document.querySelector("#newpapers");
+    const agregarNotificacion = document.querySelector("#contenedorAgregarNotificacion");
+    const contenedorNotificaciones = document.querySelector("#contenedorNotificaciones");
+    const paginacion = document.querySelector("#paginacion");
+    const contenedorBuscadorNotificaciones = document.querySelector("#contenedorBuscadorNotificaciones");
+    const volverAgregarNotificaciones = document.querySelector("#volverAgregarNotificacion");
+
+    if (botonAgregarNotificacion && agregarNotificacion && contenedorNotificaciones && contenedorBuscadorNotificaciones && volverAgregarNotificaciones) {
+        console.log("Se encontró el botón");
+
+        botonAgregarNotificacion.addEventListener("click", () => {
+
+            agregarNotificacion.classList.toggle("oculto");
+            contenedorNotificaciones.classList.toggle("oculto");
+            paginacion.classList.toggle("oculto");
+            contenedorBuscadorNotificaciones.classList.toggle("oculto");
+
+        });
+        
+        volverAgregarNotificaciones.addEventListener("click", () => {
+
+            agregarNotificacion.classList.toggle("oculto");
+            contenedorNotificaciones.classList.toggle("oculto");
+            paginacion.classList.toggle("oculto");
+            contenedorBuscadorNotificaciones.classList.toggle("oculto");
+
+        });
+    }
+
+    else{
+
+        console.log("no funciona");
+
+    }
+}
+
+
+function subopcionesGrupos() {
+
+    const opcionesGrupo = document.querySelector("#opcionesGrupos");
+    const selectPublico = document.querySelector("#PublicoNotificacion");
+
+        selectPublico.addEventListener("change", (evento) => {
+
+            const publicoNotificacion = evento.target.value;
+
+            if(publicoNotificacion === "Grupo"){
+
+            opcionesGrupo.classList.remove("oculto");
+
+            }
+            else{
+               opcionesGrupo.classList.add("oculto");
+            }
+        });
+        
+}
+
+
+function inicializarExpandirNotificaciones() {
+
+    const overlay = document.querySelector("#overlayNotificacion");
+    const botonesLeerMas = document.querySelectorAll(".leerMas");
+
+    botonesLeerMas.forEach(boton => {
+
+        boton.addEventListener("click", () => {
+
+            const notificacion = boton.closest(".notificacion");
+            
+            notificacion.classList.toggle("expandida");
+            overlay.classList.toggle("activo");
+
+            if(notificacion.classList.contains("expandida")){
+                boton.textContent = "Leer menos";
+            }
+            else{
+                boton.textContent = "Leer más";
+            }
+
+        });
+    });
+
+    overlay.addEventListener("click", () => {
+        const notificacionExpandida = document.querySelector(".notificacion.expandida");
+
+        if(notificacionExpandida){
+
+            notificacionExpandida.classList.remove("expandida");
+
+            const boton = notificacionExpandida.querySelector(".leerMas");
+            if(boton){
+                boton.textContent = "Leer más";
+            }
+        }
+        overlay.classList.remove("activo");
+    });
+
 }
