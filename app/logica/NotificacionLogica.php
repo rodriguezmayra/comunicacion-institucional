@@ -16,7 +16,7 @@ class NotificacionLogica{
     }
 
 
-   /* function crearNotificacion (int $identificador, string $nombre, string $descripcion, string $publico): boolean{
+    function crearNotificacion (int $identificador, string $nombre, string $descripcion, string $publico): boolean{
 
         $conexion = Conexion::getInstancia();
 
@@ -30,7 +30,7 @@ class NotificacionLogica{
 
         return true;
         
-    }*/
+    }
 
     function obtenerNotificaciones (int $limite, int $pagina) : ?array {
 

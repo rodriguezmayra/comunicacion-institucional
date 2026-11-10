@@ -66,7 +66,24 @@ class NotificacionDAO extends DAOGenerico{
             return $notificaciones;
 
         }
+     function insertarNotificacion (NotificacionEntidad $notificacion){
+        
+            $identificador = $notificacion->getIdentificador();
+            $nombre = $notificacion->getNombre();
+            $descripcion = $notificacion->getDescripcion();
+            $publico = $notificacion->getPublico();
+            
+            $sql = "INSERT INTO notificaciones (identificador, nombre, descripcion, publico) VALUES (?, ?, ?, ?)";  
 
+            $conexion = $this->conexion->getConexion(); 
+
+            $sentencia = $conexion->prepare($sql);
+            $sentencia->bind_param("isss", $identificador, $nombre, $descripcion, $publico);
+            $sentencia ->execute();
+
+            $sentencia->close();
+            
+        }
 }
 
 ?>
