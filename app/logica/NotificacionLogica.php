@@ -16,7 +16,7 @@ class NotificacionLogica{
     }
 
 
-    function crearNotificacion (int $identificador, string $nombre, string $descripcion, string $publico): boolean{
+    function crearNotificacion (int $identificador, string $nombre, string $descripcion, string $publico): bool{
 
         $conexion = Conexion::getInstancia();
 
@@ -25,8 +25,6 @@ class NotificacionLogica{
         $notificacionDAO = new NotificacionDAO();
 
         $notificacionDAO->insertarNotificacion($notificacion);
-
-        Conexion::cerrarConexion();
 
         return true;
         

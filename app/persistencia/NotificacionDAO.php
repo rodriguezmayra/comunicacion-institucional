@@ -36,11 +36,6 @@ class NotificacionDAO extends DAOGenerico{
 
     }
 
-    public function InsertarNotificacion($identificador): bool {
-
-        return $this->insertarFila($datos);
-
-    }
 
      function obtenerNotificaciones (int $limite, int $desplazamiento): array {
 
@@ -66,6 +61,7 @@ class NotificacionDAO extends DAOGenerico{
             return $notificaciones;
 
         }
+
      function insertarNotificacion (NotificacionEntidad $notificacion){
         
             $identificador = $notificacion->getIdentificador();
@@ -75,7 +71,7 @@ class NotificacionDAO extends DAOGenerico{
             
             $sql = "INSERT INTO notificaciones (identificador, nombre, descripcion, publico) VALUES (?, ?, ?, ?)";  
 
-            $conexion = $this->conexion->getConexion(); 
+            $conexion = $this->conexion; 
 
             $sentencia = $conexion->prepare($sql);
             $sentencia->bind_param("isss", $identificador, $nombre, $descripcion, $publico);

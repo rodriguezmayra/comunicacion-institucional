@@ -264,3 +264,5 @@ function inicializarExpandirNotificaciones() {
     });
 
 }
+
+const BotonInsertarNotificacion = document.querySelector("#AgregarNotificacion");
