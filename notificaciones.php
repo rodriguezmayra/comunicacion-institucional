@@ -66,6 +66,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <i class="fa-solid fa-magnifying-glass"></i>
             <input type="text" placeholder="Buscar notificaciones"></input>
             <a id="newpapers"><i class="fa-solid fa-newspaper" ></i></a>
+            <a id="userPlus"><i class="fa-solid fa-user-plus"></i></a>
         </div> 
 
             <div id = "contenedorNotificaciones">

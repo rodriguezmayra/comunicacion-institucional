@@ -1,11 +1,13 @@
 <?php
-class EventoEntidad extends NotificacionEntidad {
-    private time $horaInicio;
-    private time $horaFinal;
-    private date $fechaInicio;
-    private date $fechaFinal;
+ require_once 'app/logica/Entidades/NotificacionEntidad.php';
 
-    public function __construct(int $identificador, time $horaInicio, time $horaFinal, date $fechaInicio,date $fechaFinal) {
+class EventoEntidad extends NotificacionEntidad {
+    private DateTimeImmutable $horaInicio;
+    private DateTimeImmutable $horaFinal;
+    private string $fechaInicio;
+    private string $fechaFinal;
+
+    public function __construct(int $identificador, DateTimeImmutable $horaInicio, DateTimeImmutable $horaFinal, string $fechaInicio, string $fechaFinal) {
         parent::__construct($identificador);
         $this->horaInicio = $horaInicio;
         $this->horaFinal = $horaFinal;
@@ -13,40 +15,40 @@ class EventoEntidad extends NotificacionEntidad {
         $this->fechaFinal = $fechaFinal;
 
     }
-    public function getHoraInicio(): time
+    public function getHoraInicio(): DateTimeImmutable
     {
         return $this->horaInicio;
     }
-     public function setHoraInicio(time $horaInicio):void
+     public function setHoraInicio(DateTimeImmutable $horaInicio):void
     {
         $this->horaInicio=$horaInicio;
     }
 
-     public function getHoraFinal(): time
+     public function getHoraFinal(): DateTimeImmutable
     {
         return $this->horaFinal;
     }
 
-     public function setHoraFinal(time $horaFinal):void
+     public function setHoraFinal(DateTimeImmutable $horaFinal):void
     {
         $this->horaFinal=$horaFinal;
     }
 
 
-    public function getFechaInicio(): date
+    public function getFechaInicio(): string
     {
         return $this->fechaInicio;
     }
-     public function setFechaInicio(date $fechaInicio):void
+     public function setFechaInicio(string $fechaInicio):void
     {
         $this->fechaInicio=$fechaInicio;
     }
 
-     public function getFechaFinal(): date
+     public function getFechaFinal(): string
     {
         return $this->fechaFinal;
     }
-     public function setFechaFinal(date $fechaFinal):void
+     public function setFechaFinal(string $fechaFinal):void
     {
         $this->fechaFinal=$fechaFinal;
     }
@@ -55,4 +57,4 @@ class EventoEntidad extends NotificacionEntidad {
 
 
 }
-php?>
+?>

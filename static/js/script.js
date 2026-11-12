@@ -71,6 +71,8 @@ if (horarios && calendario && notificaciones && iniciarSesionA){
 
         inicializarExpandirNotificaciones();
 
+        inicializarAgregarUsuario();
+
     });
 
     horarios.addEventListener("click", async () =>{
@@ -135,6 +137,8 @@ if (horarios && calendario && notificaciones && iniciarSesionA){
 
         inicializarExpandirNotificaciones();
 
+        inicializarAgregarUsuario();
+
     });
 
     iniciarSesionA.addEventListener("click", async () => {
@@ -182,6 +186,15 @@ function inicializarAgregarNotificaciones (){
             paginacion.classList.toggle("oculto");
             contenedorBuscadorNotificaciones.classList.toggle("oculto");
 
+            notificaciones.classList.remove("mainActivo");
+            notificaciones.classList.add("bordeBajo");
+
+            horarios.classList.remove("mainActivo");
+            horarios.classList.add("bordeBajo");
+
+            calendario.classList.remove("mainActivo");
+            calendario.classList.add("bordeBajo");
+
         });
         
         volverAgregarNotificaciones.addEventListener("click", () => {
@@ -190,6 +203,15 @@ function inicializarAgregarNotificaciones (){
             contenedorNotificaciones.classList.toggle("oculto");
             paginacion.classList.toggle("oculto");
             contenedorBuscadorNotificaciones.classList.toggle("oculto");
+
+            notificaciones.classList.add("mainActivo");
+            notificaciones.classList.remove("bordeBajo");
+
+            horarios.classList.remove("mainActivo");
+            horarios.classList.add("bordeBajo");
+
+            calendario.classList.remove("mainActivo");
+            calendario.classList.add("bordeBajo");
 
         });
     }
@@ -316,3 +338,64 @@ document.addEventListener("click", async (event) => {
         }
     }
 });
+function inicializarAgregarUsuario() {
+
+    const agregarUsuario = document.querySelector("#userPlus");
+    
+
+    agregarUsuario.addEventListener("click", async () => {
+
+        const respuestaAgregarUsuario = await fetch ("crearUsuario.php");
+
+        const agregarUsuarioTexto = await respuestaAgregarUsuario.text();
+
+        indexMain.innerHTML = agregarUsuarioTexto;
+
+        notificaciones.classList.remove("mainActivo");
+        notificaciones.classList.add("bordeBajo");
+
+        horarios.classList.remove("mainActivo");
+        horarios.classList.add("bordeBajo");
+
+        calendario.classList.remove("mainActivo");
+        calendario.classList.add("bordeBajo");
+
+        inicializarVolverCrearUsuario();
+    });
+    function inicializarVolverCrearUsuario() {
+        const volverCrearUsuario = document.querySelector("#volverCrearUsuario");
+
+        volverCrearUsuario.addEventListener("click", async () => {
+
+            const respuestaNotificaciones = await fetch ("notificaciones.php");
+
+            const notificacionesTexto = await respuestaNotificaciones.text();
+
+            indexMain.innerHTML = notificacionesTexto;
+
+            notificaciones.classList.add("mainActivo");
+            notificaciones.classList.remove("bordeBajo");
+
+            horarios.classList.remove("mainActivo");
+            horarios.classList.add("bordeBajo");
+
+            calendario.classList.remove("mainActivo");
+            calendario.classList.add("bordeBajo");
+
+            inicializarAgregarNotificaciones();
+
+            subopcionesGrupos();
+
+            inicializarExpandirNotificaciones();
+
+            inicializarAgregarUsuario();
+
+            console.log("funciona");
+
+        });
+    }
+
+
+}
+
+const BotonInsertarNotificacion = document.querySelector("#AgregarNotificacion");
