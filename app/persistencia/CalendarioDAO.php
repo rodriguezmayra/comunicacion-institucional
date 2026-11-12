@@ -1,20 +1,14 @@
 <?php
 
-    require_once __DIR__ . "/../persistencia/Conexion.php";
+    require_once __DIR__ . "/Conexion.php";
 
-    class CalendarioDAO {
+    class CalendarioDAO {       
 
+        private ?mysqli $conexion;
 
-        private Conexion $conexion;
-            
-
-        public function __construct(){
-            
-            $this->conexion = Conexion::getInstancia();
-            
+        public function __construct() {
+            $this->conexion = Conexion::getInstancia()->getConexion();
         }
-       
-
         function insertarEvento (EventoEntidad $evento){
         
             $horaInicio = $evento->getHoraInicio();
@@ -36,9 +30,9 @@
 
         function obtenerEvento (): array {
 
-            $sql = "SELECT identificador, hora_inicio, hora_fin, fecha_inicio, fecha_fin FROM evento ORDER BY fecha_inicio";
+            $sql = "SELECT identificador, hora_inicio, hora_fin, fecha_inicio, fecha_fin FROM eventos ORDER BY fecha_inicio";
 
-            $conexion = $this->conexion->getConexion();
+            $conexion = $this->conexion;
             $resultado = $conexion->query($sql);
 
 
@@ -47,11 +41,11 @@
             if ($resultado && $resultado ->num_rows >0){
                 while($fila = $resultado->fetch_assoc()){
                     $evento = new EventoEntidad(
-                        (int)$fila['identificador'],
-                        new DateTimeImmutable ($fila['hora_inicio']),
-                        new DateTimeImmutable ($fila['hora_fin']),
-                        $fila['fecha_inicio'],
-                        $fila['fecha_fin'],
+                    (int)$fila['identificador'],
+                    new DateTimeImmutable($fila['hora_inicio']),
+                    new DateTimeImmutable($fila['hora_fin']),
+                    $fila['fecha_inicio'],
+                    $fila['fecha_fin'] ?? '' 
                     );
                     $eventos[] = $evento;
                 }    
@@ -61,7 +55,7 @@
             return $eventos;
 
         }
-
+            
         
     }
 

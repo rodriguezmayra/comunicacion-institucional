@@ -1,13 +1,13 @@
 <?php
- require_once 'app/logica/Entidades/NotificacionEntidad.php';
+require_once 'app/logica/Entidades/NotificacionEntidad.php';
 
 class EventoEntidad extends NotificacionEntidad {
     private DateTimeImmutable $horaInicio;
     private DateTimeImmutable $horaFinal;
     private string $fechaInicio;
-    private string $fechaFinal;
+    private ?string $fechaFinal;
 
-    public function __construct(int $identificador, DateTimeImmutable $horaInicio, DateTimeImmutable $horaFinal, string $fechaInicio, string $fechaFinal) {
+    public function __construct(int $identificador, DateTimeImmutable $horaInicio, ?DateTimeImmutable $horaFinal, string $fechaInicio, string $fechaFinal) {
         parent::__construct($identificador);
         $this->horaInicio = $horaInicio;
         $this->horaFinal = $horaFinal;

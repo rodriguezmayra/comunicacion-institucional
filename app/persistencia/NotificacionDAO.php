@@ -48,7 +48,7 @@ class NotificacionDAO extends DAOGenerico{
             $sentencia->execute();
 
             $resultado = $sentencia->get_result();
-
+                   
             $notificaciones = array();
 
             while ($fila = $resultado->fetch_assoc()) {
@@ -76,7 +76,7 @@ class NotificacionDAO extends DAOGenerico{
             $sentencia = $conexion->prepare($sql);
             $sentencia->bind_param("isss", $identificador, $nombre, $descripcion, $publico);
             $sentencia ->execute();
-
+            
             $sentencia->close();
             
         }

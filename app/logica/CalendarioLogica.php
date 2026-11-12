@@ -12,8 +12,7 @@ class CalendarioLogica{
     }
 
 
-    function obtenerEvento () : array {
-
+    function obtenerEvento () : ?array {
 
         $eventos = $this->CalendarioDAO->obtenerEvento();
 
