@@ -265,4 +265,54 @@ function inicializarExpandirNotificaciones() {
 
 }
 
-const BotonInsertarNotificacion = document.querySelector("#AgregarNotificacion");
+document.addEventListener("click", async (event) => {
+    //comprueba que se haya pulsado en el boton agregar notificacion
+    if (event.target && event.target.id === "AgregarNotificacion") {
+        //busca los elementos insertados y saca espacios 
+        const NombreNotificacion = document.querySelector("#NombreNotificacion").value.trim();
+        const DescripcionNotificacion = document.querySelector("#DescripcionNotificacion").value.trim();
+        const PublicoNotificacion = document.querySelector("#PublicoNotificacion").value;
+
+        //valida que los campos no esten vacios
+        if(!NombreNotificacion || !DescripcionNotificacion || !PublicoNotificacion){
+            alert("Complete todos los campos porfavor");
+            return;
+        }
+
+        //guarda los datos en una variable "array"
+        const datos = {
+            nombre: NombreNotificacion,
+            descripcion: DescripcionNotificacion,
+            publico: PublicoNotificacion
+        };
+
+        try {
+            //peticion que envia los datos de forma sigilosa con el fetch con formato json
+            const respuesta = await fetch('notificaciones.php', {
+                //envia
+                method: 'POST',
+                //instruccion de la peticion web, avisa en que formato viaja la informacion
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                //transforma la variable datos en un texto plano (json)
+                body: JSON.stringify(datos)
+            });
+            //recibe la respuesta de la db y lo guarda dentro de una variable
+            const textoRespuesta = await respuesta.text();
+            //transforma la respuesta json, y la transforma en un objeto javascript
+            const resultado = JSON.parse(textoRespuesta);
+            
+            //segun el resultado decide que hacer
+            if (resultado.success) {
+                alert("¡Notificación agregada con éxito!");
+                location.reload(); //reinicia la pagina para que sea visualice la nueva notificacion
+            } else {
+                alert("Error al agregar: " + resultado.mensaje);
+            }
+        } catch (error) {
+            console.error("Error en la petición:", error);
+            alert("Hubo un error de conexión con el servidor.");
+        }
+    }
+});

@@ -18,6 +18,45 @@
     
     $notificaciones = $notificacionPresentacion->obtenerNotificaciones(10, $pagina);
 
+//se ejecuta cuando recibe la peticion de tipo post
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    //avisa que los datos van en formato json
+    header('Content-Type: application/json');
+    //metodo donde php consigue el formato json que manda javascript
+    $contenidoJson = file_get_contents('php://input');
+    //convierte ese texto en un array
+    $datos = json_decode($contenidoJson, true);
+
+    //comprueba que la peticion reciba los datos
+    if ($datos) {
+        try {
+            require_once __DIR__ . '/app/logica/NotificacionLogica.php';
+
+            //recibe los datos enviados por javascript, 
+            $identificador = 0; 
+            $nombre = $datos['nombre'];
+            $descripcion = $datos['descripcion'];
+            $publico = $datos['publico'];
+            
+            //crea el objeto en la clase logica e inserta los datos recibidos
+            $logica = new NotificacionLogica();
+            //boolean dependiendo si se guardan de manera correcta los datos
+            $resultado = $logica->crearNotificacion($identificador, $nombre, $descripcion, $publico);
+
+            //condicion enviando una respuesta en formato json, dependiendo si tuvo éxito
+            if ($resultado) {
+                echo json_encode(['success' => true]);
+            } else {
+                echo json_encode(['success' => false, 'mensaje' => 'No se pudo guardar la notificación.']);
+            }
+        } catch (Exception $e) {
+            echo json_encode(['success' => false, 'mensaje' => $e->getMessage()]);
+        }
+    } else {
+        echo json_encode(['success' => false, 'mensaje' => 'Datos JSON inválidos o vacíos.']);
+    }
+    exit; 
+}
 
 
 ?>
@@ -114,7 +153,7 @@
                         
             </div>
 
-            <button id="AgregarNotificacion"    >Agregar Notificacion</button>
+            <button id="AgregarNotificacion">Agregar Notificacion</button>
 
         </div>
     </main>
