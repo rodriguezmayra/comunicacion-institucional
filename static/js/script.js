@@ -24,6 +24,7 @@ if (botonMenu){
         }
     });
 }
+//Llama a todos los elementos necesarios para el fetch
 const horarios = document.querySelector("#horarios");
 const calendario = document.querySelector("#calendario");
 const notificaciones = document.querySelector("#notificaciones");
@@ -31,10 +32,12 @@ const iniciarSesionA = document.querySelector("#iniciarSesionA");
 const cerrarSesionA = document.querySelector("#cerrarSesionA");
 const indexMain = document.querySelector("#mainInicio");
 
-
+//Comprueba si existen antes de ejecutar el código para evitar errores
 if (horarios && calendario && notificaciones && iniciarSesionA){
 
+    //Agrega un evento cuando se carga el DOM
     document.addEventListener("DOMContentLoaded", async () => {
+
 
         const parametros = new URLSearchParams(window.location.search);
         const accion = parametros.get("accion");
@@ -49,13 +52,16 @@ if (horarios && calendario && notificaciones && iniciarSesionA){
         
         }
 
-
+        //Guarda el contenido del archivo notificaciones.php
         const respuestaNotificaciones = await fetch ("notificaciones.php" + window.location.search);
 
+        //Pasa a texto el contenido de el archivo notificaciones.php
         const notificacionesTexto = await respuestaNotificaciones.text();
 
+        //Inserta el código dentro del main de index
         indexMain.innerHTML = notificacionesTexto;
 
+        //Aplica los estilos necesarios para que se seleccione visualmente el botón "notificaciones"
         notificaciones.classList.add("mainActivo");
         notificaciones.classList.remove("bordeBajo");
 
@@ -65,6 +71,7 @@ if (horarios && calendario && notificaciones && iniciarSesionA){
         calendario.classList.remove("mainActivo");
         calendario.classList.add("bordeBajo");
 
+        //Inicializa funciones que requieren de elementos de notificaciones.php
         inicializarAgregarNotificaciones();
 
         subopcionesGrupos();
@@ -169,6 +176,8 @@ else {
 }
 
 function inicializarAgregarNotificaciones (){
+
+    //Guarda elementos necesarios desde el DOM
     const botonAgregarNotificacion = document.querySelector("#newpapers");
     const agregarNotificacion = document.querySelector("#contenedorAgregarNotificacion");
     const contenedorNotificaciones = document.querySelector("#contenedorNotificaciones");
@@ -176,16 +185,19 @@ function inicializarAgregarNotificaciones (){
     const contenedorBuscadorNotificaciones = document.querySelector("#contenedorBuscadorNotificaciones");
     const volverAgregarNotificaciones = document.querySelector("#volverAgregarNotificacion");
 
+    //Comprueba que existan esos elementos para mitigar errores
     if (botonAgregarNotificacion && agregarNotificacion && contenedorNotificaciones && contenedorBuscadorNotificaciones && volverAgregarNotificaciones) {
-        console.log("Se encontró el botón");
 
+        //Agrega un evento de tipo click al botón de agregar notificaciones
         botonAgregarNotificacion.addEventListener("click", () => {
 
+            //Oculta el contenedor donde se ven las notificaciones y demás
             agregarNotificacion.classList.toggle("oculto");
             contenedorNotificaciones.classList.toggle("oculto");
             paginacion.classList.toggle("oculto");
             contenedorBuscadorNotificaciones.classList.toggle("oculto");
 
+            //Deselecciona visualmente los switches del main
             notificaciones.classList.remove("mainActivo");
             notificaciones.classList.add("bordeBajo");
 
@@ -197,13 +209,16 @@ function inicializarAgregarNotificaciones (){
 
         });
         
+        //Agrega un evento de tipo click al botón de volver dentro de agregar notificaciones
         volverAgregarNotificaciones.addEventListener("click", () => {
-
+            
+            //Oculta y muestra los elementos inversamente respecto al boton de agregar notificaciones
             agregarNotificacion.classList.toggle("oculto");
             contenedorNotificaciones.classList.toggle("oculto");
             paginacion.classList.toggle("oculto");
             contenedorBuscadorNotificaciones.classList.toggle("oculto");
 
+            //Vuelve a seleccionar visualmente el switch de notificaciones
             notificaciones.classList.add("mainActivo");
             notificaciones.classList.remove("bordeBajo");
 
@@ -229,17 +244,24 @@ function subopcionesGrupos() {
     const opcionesGrupo = document.querySelector("#opcionesGrupos");
     const selectPublico = document.querySelector("#PublicoNotificacion");
 
+        //Agrega un evento de tipo change (cuando su valor cambia) al selector de público notificación
         selectPublico.addEventListener("change", (evento) => {
 
+            //Se guarda el valor que tenga en ese momento el selector
             const publicoNotificacion = evento.target.value;
 
+            //Si el valor del selector es "Grupo" se ejecuta
             if(publicoNotificacion === "Grupo"){
-
-            opcionesGrupo.classList.remove("oculto");
+                
+                //Hace aparecer las subopciones de grupo
+                opcionesGrupo.classList.remove("oculto");
 
             }
             else{
-               opcionesGrupo.classList.add("oculto");
+                
+                //Oculta las subopciones de grupo
+                opcionesGrupo.classList.add("oculto");
+
             }
         });
         
@@ -251,25 +273,33 @@ function inicializarExpandirNotificaciones() {
     const overlay = document.querySelector("#overlayNotificacion");
     const botonesLeerMas = document.querySelectorAll(".leerMas");
 
+    //Recorre todos los botones de leer más
     botonesLeerMas.forEach(boton => {
 
+        //Le añade un evento click a cada uno
         boton.addEventListener("click", () => {
 
+            //Guarda el contenedor de notificación de cada leer más
             const notificacion = boton.closest(".notificacion");
             
+            //Activa o desactiva el overlay y la expanción de la notificación
             notificacion.classList.toggle("expandida");
             overlay.classList.toggle("activo");
 
+            //Si la notificación está expandida se ejecuta
             if(notificacion.classList.contains("expandida")){
+                //Cambia el texto del botón a Leer menos
                 boton.textContent = "Leer menos";
             }
             else{
+                //Vuelve el texto del botón a Leer más
                 boton.textContent = "Leer más";
             }
 
         });
     });
 
+    //Añade un evento para que si se clickea fuera de la notificación, vuelva a la normalidad
     overlay.addEventListener("click", () => {
         const notificacionExpandida = document.querySelector(".notificacion.expandida");
 
@@ -286,6 +316,68 @@ function inicializarExpandirNotificaciones() {
     });
 
 }
+
+function inicializarAgregarUsuario() {
+
+    const agregarUsuario = document.querySelector("#userPlus");
+    
+    //fetch para agregar usuario
+    agregarUsuario.addEventListener("click", async () => {
+
+        const respuestaAgregarUsuario = await fetch ("crearUsuario.php");
+
+        const agregarUsuarioTexto = await respuestaAgregarUsuario.text();
+
+        indexMain.innerHTML = agregarUsuarioTexto;
+
+        notificaciones.classList.remove("mainActivo");
+        notificaciones.classList.add("bordeBajo");
+
+        horarios.classList.remove("mainActivo");
+        horarios.classList.add("bordeBajo");
+
+        calendario.classList.remove("mainActivo");
+        calendario.classList.add("bordeBajo");
+
+        inicializarVolverCrearUsuario();
+    });
+    
+    //fetch para que vuelva al main de notificaciones desde crear usuario
+    function inicializarVolverCrearUsuario() {
+        const volverCrearUsuario = document.querySelector("#volverCrearUsuario");
+
+        volverCrearUsuario.addEventListener("click", async () => {
+
+            const respuestaNotificaciones = await fetch ("notificaciones.php");
+
+            const notificacionesTexto = await respuestaNotificaciones.text();
+
+            indexMain.innerHTML = notificacionesTexto;
+
+            notificaciones.classList.add("mainActivo");
+            notificaciones.classList.remove("bordeBajo");
+
+            horarios.classList.remove("mainActivo");
+            horarios.classList.add("bordeBajo");
+
+            calendario.classList.remove("mainActivo");
+            calendario.classList.add("bordeBajo");
+
+            inicializarAgregarNotificaciones();
+
+            subopcionesGrupos();
+
+            inicializarExpandirNotificaciones();
+
+            inicializarAgregarUsuario();
+
+        });
+    }
+
+
+}
+
+const BotonInsertarNotificacion = document.querySelector("#AgregarNotificacion");
 
 document.addEventListener("click", async (event) => {
     //comprueba que se haya pulsado en el boton agregar notificacion
@@ -338,64 +430,3 @@ document.addEventListener("click", async (event) => {
         }
     }
 });
-function inicializarAgregarUsuario() {
-
-    const agregarUsuario = document.querySelector("#userPlus");
-    
-
-    agregarUsuario.addEventListener("click", async () => {
-
-        const respuestaAgregarUsuario = await fetch ("crearUsuario.php");
-
-        const agregarUsuarioTexto = await respuestaAgregarUsuario.text();
-
-        indexMain.innerHTML = agregarUsuarioTexto;
-
-        notificaciones.classList.remove("mainActivo");
-        notificaciones.classList.add("bordeBajo");
-
-        horarios.classList.remove("mainActivo");
-        horarios.classList.add("bordeBajo");
-
-        calendario.classList.remove("mainActivo");
-        calendario.classList.add("bordeBajo");
-
-        inicializarVolverCrearUsuario();
-    });
-    function inicializarVolverCrearUsuario() {
-        const volverCrearUsuario = document.querySelector("#volverCrearUsuario");
-
-        volverCrearUsuario.addEventListener("click", async () => {
-
-            const respuestaNotificaciones = await fetch ("notificaciones.php");
-
-            const notificacionesTexto = await respuestaNotificaciones.text();
-
-            indexMain.innerHTML = notificacionesTexto;
-
-            notificaciones.classList.add("mainActivo");
-            notificaciones.classList.remove("bordeBajo");
-
-            horarios.classList.remove("mainActivo");
-            horarios.classList.add("bordeBajo");
-
-            calendario.classList.remove("mainActivo");
-            calendario.classList.add("bordeBajo");
-
-            inicializarAgregarNotificaciones();
-
-            subopcionesGrupos();
-
-            inicializarExpandirNotificaciones();
-
-            inicializarAgregarUsuario();
-
-            console.log("funciona");
-
-        });
-    }
-
-
-}
-
-const BotonInsertarNotificacion = document.querySelector("#AgregarNotificacion");
