@@ -13,14 +13,14 @@ class NotificacionPresentacion{
 
 
     // Es necesario realizar comprobaciones respecto a la paginación
-    public function obtenerNotificaciones (int $limite, int $pagina): ?array {
+    public function obtenerNotificaciones (int $limite, int $pagina, string $palabraFiltro): ?array {
 
         if ($pagina < 1 || $limite < 1) {
             $pagina = 1;
             $limite = 10;
         }
 
-        $notificaciones = $this->servicioNotificacion->obtenerNotificaciones($limite, $pagina);
+        $notificaciones = $this->servicioNotificacion->obtenerNotificaciones($limite, $pagina, $palabraFiltro);
 
         return $notificaciones;
 

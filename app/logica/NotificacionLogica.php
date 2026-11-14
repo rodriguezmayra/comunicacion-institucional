@@ -30,11 +30,11 @@ class NotificacionLogica{
         
     }
 
-    function obtenerNotificaciones (int $limite, int $pagina) : ?array {
+    function obtenerNotificaciones (int $limite, int $pagina, string $palabraFiltro) : ?array {
 
         $desplazamiento = ($pagina - 1) * $limite;
 
-        $notificaciones = $this->notificacionDAO->obtenerNotificaciones($limite, $desplazamiento);
+        $notificaciones = $this->notificacionDAO->obtenerNotificaciones($limite, $desplazamiento, $palabraFiltro);
 
         return $notificaciones;
 

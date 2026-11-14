@@ -4,7 +4,7 @@
     require_once 'app/logica/Entidades/NotificacionEntidad.php';
 
     $notificacionPresentacion = new NotificacionPresentacion();
-    
+    $palabraFiltro = isset($_GET['palabraFiltro']) ? $_GET['palabraFiltro'] : '';
 
 
     if (isset($_GET['pagina'])) {
@@ -16,7 +16,7 @@
     session_start();
     //echo $_SESSION['grupo'];
     
-    $notificaciones = $notificacionPresentacion->obtenerNotificaciones(10, $pagina);
+    $notificaciones = $notificacionPresentacion->obtenerNotificaciones(10, $pagina, $palabraFiltro);
 
 //se ejecuta cuando recibe la peticion de tipo post
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -59,12 +59,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 
+
+
 ?>
 
     <main id = "mainNotificaciones"> 
         <div id="contenedorBuscadorNotificaciones">
             <i class="fa-solid fa-magnifying-glass"></i>
-            <input type="text" placeholder="Buscar notificaciones"></input>
+            <form method="GET">
+                <input type="text" placeholder="Buscar notificaciones" name = "palabraFiltro" value = "<?php echo htmlspecialchars($palabraFiltro); ?>" ></input>
+            </form>
             <a id="newpapers"><i class="fa-solid fa-newspaper" ></i></a>
             <a id="userPlus"><i class="fa-solid fa-user-plus"></i></a>
         </div> 

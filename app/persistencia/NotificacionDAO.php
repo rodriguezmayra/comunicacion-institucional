@@ -37,14 +37,15 @@ class NotificacionDAO extends DAOGenerico{
     }
 
 
-     function obtenerNotificaciones (int $limite, int $desplazamiento): array {
+     function obtenerNotificaciones (int $limite, int $desplazamiento, string $palabraFiltro): array {
 
-            $sql = "SELECT identificador, nombre, descripcion, publico FROM notificaciones ORDER BY identificador DESC LIMIT ? OFFSET ?";
+            $sql = "SELECT identificador, nombre, descripcion, publico FROM notificaciones  WHERE nombre LIKE ? ORDER BY identificador DESC LIMIT ? OFFSET ? ";
 
             $conexion = $this->conexion;
 
             $sentencia = $conexion->prepare($sql);
-            $sentencia->bind_param("ii", $limite, $desplazamiento);
+            $likeValue = "%" . $palabraFiltro. "%";
+            $sentencia->bind_param("sii", $likeValue , $limite, $desplazamiento);
             $sentencia->execute();
 
             $resultado = $sentencia->get_result();
