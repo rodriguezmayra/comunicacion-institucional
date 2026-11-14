@@ -37,11 +37,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $nombre = $datos['nombre'];
             $descripcion = $datos['descripcion'];
             $publico = $datos['publico'];
+            $fecha = $datos['fecha'];
             
             //crea el objeto en la clase logica e inserta los datos recibidos
             $logica = new NotificacionLogica();
             //boolean dependiendo si se guardan de manera correcta los datos
-            $resultado = $logica->crearNotificacion($identificador, $nombre, $descripcion, $publico);
+            $resultado = $logica->crearNotificacion($identificador, $nombre, $descripcion, $publico, $fecha);
 
             //condicion enviando una respuesta en formato json, dependiendo si tuvo éxito
             if ($resultado) {
@@ -87,6 +88,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         
                         echo '<div class = "notificacion">';
                         echo '<h3>' . $notificacion->getNombre() . '</h3>';
+                        echo '<h4>' .$notificacion->getFecha() . '</h4>';
                         echo '<p>' . $notificacion->getDescripcion() . '</p>';
                         echo '<a class="leerMas">Leer más</a>';
                         echo '</div>';

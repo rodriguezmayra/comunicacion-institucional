@@ -12,7 +12,12 @@
             <label id="NombreLabel" for="NombreUsuario">
                 Nombre: 
             </label>
-            <input type="text" id="NombreNotificacion" name="Nombre" required>
+            <input type="text" id="NombreUsuario" name="Nombre" required>
+
+            <label id="ContraseniaLabel" for="ContraseniaUsuario">
+                Contraseña: 
+            </label>
+            <input type="password" id="ContraseniaUsuario" name="Contrasenia" required>
 
             <label id="RolLabel" for="RolUser">
                 Rol: 

@@ -51,6 +51,20 @@ class UsuarioLogica {
 
     }
 
+    function crearUsuario (int $correoElectronico, string $nombre, string $contrasenia, string $rol): bool{
+
+        $conexion = Conexion::getInstancia();
+
+        $usuario = new UsuarioEntidad($correoElectronico, $nombre, $contrasenia, $rol);  
+
+        $usuarioDAO = new UsuarioDAO();
+
+        $usuarioDAO->insertarUsuario($usuario);
+
+        return true;
+        
+    }
+
 
 }
 

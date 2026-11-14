@@ -21,8 +21,27 @@ class UsuarioDAO extends DAOGenerico {
             return $this->obtenerFila($identificador);
         }
 
-        public function insertarUsuario (array $datos) : bool {
+        public function insertarUser (array $datos) : bool {
             return $this->insertarFila($datos);
+        }
+
+    function insertarUsuario (UsuarioEntidad $usuario){
+        
+            $correoElectronico = $usuario->getCorreoElectronico();
+            $nombre = $usuario->getNombre();
+            $contrasenia = $usuario->getContrasenia();
+            $rol = $usuario->getRol();
+            
+            $sql = "INSERT INTO usuarios (correo_electronico, nombre, contrasenia, rol) VALUES (?, ?, ?, ?)";  
+
+            $conexion = $this->conexion; 
+
+            $sentencia = $conexion->prepare($sql);
+            $sentencia->bind_param("ssss", $correoElectronico, $nombre, $contrasenia, $rol);
+            $sentencia ->execute();
+            
+            $sentencia->close();
+            
         }
     
 }

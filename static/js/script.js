@@ -386,6 +386,7 @@ document.addEventListener("click", async (event) => {
         const NombreNotificacion = document.querySelector("#NombreNotificacion").value.trim();
         const DescripcionNotificacion = document.querySelector("#DescripcionNotificacion").value.trim();
         const PublicoNotificacion = document.querySelector("#PublicoNotificacion").value;
+        const FechaNotificacion = new Date().toISOString().split('T')[0];
 
         //valida que los campos no esten vacios
         if(!NombreNotificacion || !DescripcionNotificacion || !PublicoNotificacion){
@@ -397,7 +398,8 @@ document.addEventListener("click", async (event) => {
         const datos = {
             nombre: NombreNotificacion,
             descripcion: DescripcionNotificacion,
-            publico: PublicoNotificacion
+            publico: PublicoNotificacion,
+            fecha: FechaNotificacion
         };
 
         try {
@@ -430,3 +432,4 @@ document.addEventListener("click", async (event) => {
         }
     }
 });
+

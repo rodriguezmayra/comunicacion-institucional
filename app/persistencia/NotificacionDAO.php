@@ -39,7 +39,7 @@ class NotificacionDAO extends DAOGenerico{
 
      function obtenerNotificaciones (int $limite, int $desplazamiento, string $palabraFiltro): array {
 
-            $sql = "SELECT identificador, nombre, descripcion, publico FROM notificaciones  WHERE nombre LIKE ? ORDER BY identificador DESC LIMIT ? OFFSET ? ";
+            $sql = "SELECT identificador, nombre, descripcion, publico, fecha FROM notificaciones  WHERE nombre LIKE ? ORDER BY identificador DESC LIMIT ? OFFSET ? ";
 
             $conexion = $this->conexion;
 
@@ -53,7 +53,7 @@ class NotificacionDAO extends DAOGenerico{
             $notificaciones = array();
 
             while ($fila = $resultado->fetch_assoc()) {
-                $notificacion = new NotificacionEntidad($fila["identificador"], $fila["nombre"], $fila["descripcion"], $fila["publico"]);
+                $notificacion = new NotificacionEntidad($fila["identificador"], $fila["nombre"], $fila["descripcion"], $fila["publico"], $fila["fecha"] ?? "");
                 $notificaciones[] = $notificacion;
             }
 
@@ -69,13 +69,14 @@ class NotificacionDAO extends DAOGenerico{
             $nombre = $notificacion->getNombre();
             $descripcion = $notificacion->getDescripcion();
             $publico = $notificacion->getPublico();
+            $fecha = $notificacion->getFecha();
             
-            $sql = "INSERT INTO notificaciones (identificador, nombre, descripcion, publico) VALUES (?, ?, ?, ?)";  
+            $sql = "INSERT INTO notificaciones (identificador, nombre, descripcion, publico, fecha) VALUES (?, ?, ?, ?, ?)";  
 
             $conexion = $this->conexion; 
 
             $sentencia = $conexion->prepare($sql);
-            $sentencia->bind_param("isss", $identificador, $nombre, $descripcion, $publico);
+            $sentencia->bind_param("issss", $identificador, $nombre, $descripcion, $publico, $fecha);
             $sentencia ->execute();
             
             $sentencia->close();

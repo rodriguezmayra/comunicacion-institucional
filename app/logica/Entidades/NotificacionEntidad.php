@@ -5,13 +5,15 @@ class NotificacionEntidad{
     private String $nombre;
     private String $descripcion;
     private String $publico;
+    private ?String $fecha;
 
-    public function __construct(int $identificador = 0, String $nombre = "", String $descripcion = "", String $publico = "")
+    public function __construct(int $identificador = 0, String $nombre = "", String $descripcion = "", String $publico = "", String $fecha = "")
     {
         $this->identificador = $identificador;
         $this->nombre = $nombre;
         $this->descripcion = $descripcion;
         $this->publico = $publico;
+        $this->fecha = $fecha;
     }
 
     public function getIdentificador(): int
@@ -33,6 +35,11 @@ class NotificacionEntidad{
     {
         return $this->publico;
     }
+    
+    public function getFecha(): ?String
+    {
+        return $this->fecha;
+    }
 
     public function setIdentificador (int $identificador): void
     {
@@ -52,6 +59,12 @@ class NotificacionEntidad{
     public function setPublico (String $publico): void
     {
         $this->publico = $publico;
+    }
+
+    
+    public function setFecha (String $fecha): void
+    {
+        $this->fecha = $fecha;
     }
 
 }
