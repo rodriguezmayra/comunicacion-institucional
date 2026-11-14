@@ -16,11 +16,11 @@ class NotificacionLogica{
     }
 
 
-    function crearNotificacion (int $identificador, string $nombre, string $descripcion, string $publico): bool{
+    function crearNotificacion (int $identificador, string $nombre, string $descripcion, string $publico, string $fecha): bool{
 
         $conexion = Conexion::getInstancia();
 
-        $notificacion = new NotificacionEntidad($identificador, $nombre, $descripcion, $publico);  
+        $notificacion = new NotificacionEntidad($identificador, $nombre, $descripcion, $publico, $fecha);  
 
         $notificacionDAO = new NotificacionDAO();
 
