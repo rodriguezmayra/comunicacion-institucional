@@ -1,5 +1,6 @@
 <?php
 
+
 abstract class DAOGenerico{
 
     protected mysqli $conexion;
@@ -16,11 +17,14 @@ abstract class DAOGenerico{
 
         $sql = "SELECT * FROM {$this->getTabla()} WHERE {$this->getClavePrimaria()} = ?";
 
-        $tipo = match (true) { 
-            is_int($identificador) || is_bool($identificador) => "i",
-            is_float($identificador) => "d",
-            default => "s",
-        };
+
+        if (is_int($identidicador) || is_bool($identidicador)){
+            $tipo = "i";
+        }elseif (is_float($identificador)){
+            $tipo = "d";
+        }else{
+            $tipo = "s";
+        }
 
         $sentencia = $this->conexion->prepare($sql);
         $sentencia->bind_param($tipo, $identificador);
@@ -34,14 +38,36 @@ abstract class DAOGenerico{
 
     }
 
-    protected function obtenerFilas() : array{
+    //En una versión futura se podria implementar un método que reciba filtros y devuelva los datos correspondientes
 
-        //Este metodo opcionalmente podrá recibir un filtro
-        //Acá estará la lógica para obtener varios registros de la tabla correspondiente
+
+    protected function obtenerFilas($ordenamiento, $columna, $limite, $desplazamiento): ?array{
+    
+        $ordenamiento = strtoupper($ordenamiento) == "DESC" ? "DESC" : "ASC";
+
+        $sql = "SELECT * FROM {$this->getTabla()} ORDER BY `{$columna}` {$ordenamiento} LIMIT ? OFFSET ?";
+
+        $sentencia = $this->conexion->prepare($sql);
+        $sentencia->bind_param("ii", $limite, $desplazamiento);
+        $sentencia->execute();
+        $resultado = $sentencia->get_result();
+
+        if ($resultado !== false && $resultado->num_rows > 0) {
+
+            $filas = $resultado->fetch_all(MYSQLI_ASSOC);
+            $sentencia->close();
+            return $filas;
+
+        }
+        
+        $sentencia -> close();
+        return null;
 
     }
 
-    protected function insertarFila (array $datos) : bool {
+
+
+    /*protected function insertarFila (array $datos) : bool {
 
         if (count($datos) === 0){
             return false;
@@ -52,11 +78,15 @@ abstract class DAOGenerico{
 
         $sql = "INSERT INTO {$this->getTabla()} ({$columnas}) VALUES ({$marcadoresPosicion})";
 
-        $resultado = $this->conexion->execute_query($sql, $datos);
+        //$resultado = $this->conexion->execute_query($sql, $datos);
+        $sentencia = $this->conexion->prepare($sql);
+        $sentencia->bind_param()
+
 
         return $resultado !== false;
         
-    }
+    }*/
+
 
 
 }
