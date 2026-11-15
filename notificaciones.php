@@ -16,7 +16,7 @@
     session_start();
     //echo $_SESSION['grupo'];
     
-    $notificaciones = $notificacionPresentacion->obtenerNotificaciones(10, $pagina, $palabraFiltro);
+    $notificaciones = $notificacionPresentacion->obtenerNotificaciones(7, $pagina, $palabraFiltro);
 
 //se ejecuta cuando recibe la peticion de tipo post
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -42,6 +42,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             //crea el objeto en la clase logica e inserta los datos recibidos
             $logica = new NotificacionLogica();
             //boolean dependiendo si se guardan de manera correcta los datos
+
+            //LA VISTA NO DEBE LLAMAR A MÉTODOS DE LÓGICA, debe comunicarse exclusivamente con la presentación
             $resultado = $logica->crearNotificacion($identificador, $nombre, $descripcion, $publico, $fecha);
 
             //condicion enviando una respuesta en formato json, dependiendo si tuvo éxito

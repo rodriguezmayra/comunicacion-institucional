@@ -18,7 +18,7 @@ abstract class DAOGenerico{
         $sql = "SELECT * FROM {$this->getTabla()} WHERE {$this->getClavePrimaria()} = ?";
 
 
-        if (is_int($identidicador) || is_bool($identidicador)){
+        if (is_int($identificador) || is_bool($identidicador)){
             $tipo = "i";
         }elseif (is_float($identificador)){
             $tipo = "d";
