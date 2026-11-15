@@ -88,7 +88,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         
                         echo '<div class = "notificacion">';
                         echo '<h3>' . $notificacion->getNombre() . '</h3>';
-                        echo '<h4>' .$notificacion->getFecha() . '</h4>';
+                        echo '<h5>' .$notificacion->getFecha() . '</h5>';
                         echo '<p>' . $notificacion->getDescripcion() . '</p>';
                         echo '<a class="leerMas">Leer más</a>';
                         echo '</div>';

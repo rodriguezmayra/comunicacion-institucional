@@ -379,9 +379,14 @@ header img{
 
     padding-left:5%;
     padding-right:7%;
-    padding-top:1%;
+    padding-top: 1%;
+    padding-bottom:1%;
     width: 40vw;
     height: 30vh;
+
+    display: flex;
+    flex-direction: column;
+    gap: 0;
 
     border-radius: 15px;
     box-shadow: 0 0 7px 1px #e1e8eb;
@@ -393,20 +398,34 @@ header img{
    
 }
 
+
+
 .notificacion > p {
 
     display: -webkit-box;
     -webkit-box-orient: vertical;
-    -webkit-line-clamp: 4;      
+    -webkit-line-clamp: 3;      
     overflow: hidden;
     white-space: pre-line;
 
+}
+
+.notificacion h3 {
+    margin-top: 0.5%;
+    margin-bottom: 0.5%;
+}
+
+.notificacion h5 {
+
+    margin-top: 0.5%;
+    margin-bottom: 0.5%;
 }
 
 .leerMas {
 
     padding-left: 0.5%;
     padding-right: 0.5%;
+    width: 5.5vw;
     font-size: 1em;
 
     border-radius: 5px;
@@ -529,6 +548,9 @@ header img{
     display: block !important;
     -webkit-line-clamp: unset !important;
     overflow: visible !important;
+    white-space: pre-line !important;      
+    word-break: break-word !important;    
+    overflow-x: visible !important;
 }
 
 #overlayNotificacion {
