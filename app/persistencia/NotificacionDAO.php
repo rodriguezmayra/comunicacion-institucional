@@ -21,7 +21,7 @@ class NotificacionDAO extends DAOGenerico{
     }
 
     function getColumnas(): array{
-        return ["identificador", "nombre", "descripcion", "publico"];
+        return ["identificador", "nombre", "descripcion", "publico", "fecha"];
 
     }
 
@@ -63,25 +63,20 @@ class NotificacionDAO extends DAOGenerico{
 
         }
 
-     function insertarNotificacion (NotificacionEntidad $notificacion){
-        
-            $identificador = $notificacion->getIdentificador();
-            $nombre = $notificacion->getNombre();
-            $descripcion = $notificacion->getDescripcion();
-            $publico = $notificacion->getPublico();
-            $fecha = $notificacion->getFecha();
-            
-            $sql = "INSERT INTO notificaciones (identificador, nombre, descripcion, publico, fecha) VALUES (?, ?, ?, ?, ?)";  
+    function insertarNotificacion(NotificacionEntidad $notificacion): bool {
 
-            $conexion = $this->conexion; 
+        $datos = [
+            $notificacion->getIdentificador(),
+            $notificacion->getNombre(),
+            $notificacion->getDescripcion(),
+            $notificacion->getPublico(),
+            $notificacion->getFecha()
+        ];
 
-            $sentencia = $conexion->prepare($sql);
-            $sentencia->bind_param("issss", $identificador, $nombre, $descripcion, $publico, $fecha);
-            $sentencia ->execute();
+        return $this->insertarFila($datos);
+
+    }
             
-            $sentencia->close();
-            
-        }
 }
 
 ?>

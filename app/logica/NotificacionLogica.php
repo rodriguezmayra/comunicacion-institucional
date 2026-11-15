@@ -16,17 +16,12 @@ class NotificacionLogica{
     }
 
 
+    // En una versión futura el sistema podría registrar, además, el identificador de el usuario que creó la notificación
     function crearNotificacion (int $identificador, string $nombre, string $descripcion, string $publico, string $fecha): bool{
-
-        $conexion = Conexion::getInstancia();
 
         $notificacion = new NotificacionEntidad($identificador, $nombre, $descripcion, $publico, $fecha);  
 
-        $notificacionDAO = new NotificacionDAO();
-
-        $notificacionDAO->insertarNotificacion($notificacion);
-
-        return true;
+        return $this->notificacionDAO->insertarNotificacion($notificacion);
         
     }
 
