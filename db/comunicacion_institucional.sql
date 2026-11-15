@@ -84,8 +84,9 @@ CREATE TABLE IF NOT EXISTS notificaciones(
 
     identificador INT AUTO_INCREMENT PRIMARY KEY,
     nombre VARCHAR(100),
-    descripcion VARCHAR(255),
-    publico VARCHAR(20)
+    descripcion VARCHAR(1500),
+    publico VARCHAR(20),
+    fecha DATE
 
 );
 
