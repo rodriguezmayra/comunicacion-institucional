@@ -10,7 +10,7 @@ USE comunicacion_institucional;
 CREATE TABLE IF NOT EXISTS usuarios (
 
     correo_electronico VARCHAR(255) PRIMARY KEY,
-    contrasenia VARCHAR(100),
+    contrasenia VARCHAR(255),
     nombre VARCHAR(100),
     rol VARCHAR(20)
 
