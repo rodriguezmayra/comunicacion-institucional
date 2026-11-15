@@ -12,9 +12,25 @@ class CalendarioLogica{
     }
 
 
+      function crearEvento (int $identificador,DateTimeImmutable $horaInicio, ?DateTimeImmutable $horaFinal, string $fechaInicio, string $fechaFinal ): bool{
+
+        $conexion = Conexion::getInstancia();
+
+        $evento = new EventoEntidad($identificador, $horaInicio, $horaFinal, $fechaInicio, $fechaFinal );  
+
+        $CalendarioDAO = new CalendarioDAO();
+
+        $CalendarioDAO->insertarEvento($evento);
+
+        return true;
+        
+    }
+
     function obtenerEvento () : ?array {
 
+
         $eventos = $this->CalendarioDAO->obtenerEvento();
+
 
         return $eventos;
 

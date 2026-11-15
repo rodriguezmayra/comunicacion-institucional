@@ -2,19 +2,33 @@
 require_once 'app/logica/Entidades/NotificacionEntidad.php';
 
 class EventoEntidad extends NotificacionEntidad {
+    private int $identificador;
     private DateTimeImmutable $horaInicio;
-    private DateTimeImmutable $horaFinal;
+    private ?DateTimeImmutable $horaFinal;
     private string $fechaInicio;
     private ?string $fechaFinal;
+    private string $nombreNotificacion;
+    
 
-    public function __construct(int $identificador, DateTimeImmutable $horaInicio, ?DateTimeImmutable $horaFinal, string $fechaInicio, string $fechaFinal) {
-        parent::__construct($identificador);
-        $this->horaInicio = $horaInicio;
-        $this->horaFinal = $horaFinal;
-        $this->fechaInicio = $fechaInicio;
-        $this->fechaFinal = $fechaFinal;
 
+    public function __construct(int $identificador, DateTimeImmutable $horaInicio, ?DateTimeImmutable $horaFinal, string $fechaInicio, string $fechaFinal, string $nombreNotificacion) {
+    $this->identificador = $identificador;
+    $this->horaInicio = $horaInicio;
+    $this->horaFinal = $horaFinal;
+    $this->fechaInicio = $fechaInicio;
+    $this->fechaFinal = $fechaFinal;
+    $this->nombreNotificacion = $nombreNotificacion;
+}
+    #[Override]
+    public function getIdentificador(): int
+    {
+        return parent::getIdentificador();
     }
+
+    public function getNombreNotificacion(): string {
+    return $this->nombreNotificacion;
+    }
+
     public function getHoraInicio(): DateTimeImmutable
     {
         return $this->horaInicio;
@@ -29,7 +43,7 @@ class EventoEntidad extends NotificacionEntidad {
         return $this->horaFinal;
     }
 
-     public function setHoraFinal(DateTimeImmutable $horaFinal):void
+     public function setHoraFinal(?DateTimeImmutable $horaFinal):void
     {
         $this->horaFinal=$horaFinal;
     }

@@ -3,11 +3,13 @@
  require_once 'app/logica/CalendarioLogica.php';
  require_once 'app/presentacion/CalendarioPresentacion.php';
  require_once 'app/logica/Entidades/EventoEntidad.php';
-
+ 
  $calendarioLogica = new CalendarioLogica();
+ 
 
-
+ 
  $eventos = $calendarioLogica->obtenerEvento();
+
 
 //Obtener zona horaria
 date_default_timezone_set('America/Montevideo');
@@ -62,22 +64,21 @@ echo "</td>";
         // Muestra los días del mes
         for ($day = 1; $day <= $daysInMonth; $day++) {
             $class = ($day == date('j')) ? 'today' : '';
-
+        
         $fechaActual = "$year-$month-" . str_pad($day,2,'0', STR_PAD_LEFT);
+        
 
             
             $contenido = "";
 
             $contenido .= "<td class='$class'>";
             $contenido .= "<span class='numero_dia'>$day</span>";
-
             foreach ($eventos as $evento) {
 
                     if ($evento->getFechaInicio()== $fechaActual){
 
                     $contenido .= '<div class = "eventos">' ;
-                    $contenido .= '<h5>' . $evento->getFechaInicio() . '</h5>';
-                    $contenido .= '<p>' . $evento->getFechaFinal() . '</p>';
+                    $contenido .= '<h5>' .($evento->getNombreNotificacion()) .'</h5>';
                     }
 
                     }
@@ -92,8 +93,8 @@ echo "</td>";
             if (($day + $firstDay - 1) % 7 == 0) {
                 echo "</tr><tr>";
             }
-        }
-
+            }
+     
         ?>
     </tr>
 </table>
