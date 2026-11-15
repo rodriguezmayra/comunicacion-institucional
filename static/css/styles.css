@@ -404,15 +404,15 @@ header img{
 
     display: -webkit-box;
     -webkit-box-orient: vertical;
-    -webkit-line-clamp: 3;      
+    -webkit-line-clamp: 4;      
     overflow: hidden;
     white-space: pre-line;
 
 }
 
 .notificacion h3 {
-    margin-top: 0.5%;
-    margin-bottom: 0.5%;
+    margin-top: 1%;
+    margin-bottom: 1%;
 }
 
 .notificacion h5 {
@@ -433,6 +433,10 @@ header img{
     color: #ffffff;
     font-family: 'Montserrat', sans-serif;
 
+}
+
+.leerMenos {
+    width: 7vw !important;
 }
 
 .leerMas:hover{

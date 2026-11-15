@@ -290,10 +290,12 @@ function inicializarExpandirNotificaciones() {
             if(notificacion.classList.contains("expandida")){
                 //Cambia el texto del botón a Leer menos
                 boton.textContent = "Leer menos";
+                boton.classList.add("leerMenos");
             }
             else{
                 //Vuelve el texto del botón a Leer más
                 boton.textContent = "Leer más";
+                boton.classList.remove("leerMenos");
             }
 
         });
