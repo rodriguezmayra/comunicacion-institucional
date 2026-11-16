@@ -103,13 +103,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <div id="paginacion">
             <?php
             if ($pagina>1)
-            echo '<a href="index.php?pagina=' . $pagina - 1 . '" id="paginacionAnterior"> Anterior </a>';
+            echo '<a href="index.php?pagina=' . ($pagina - 1) . '" id="paginacionAnterior"> Anterior </a>';
 
             for($i = 1; $i <= 10; $i++){
                 echo '<a href="index.php?pagina=' . $i . '" class="paginacionIndices">' . $i . '</a>';
             }
 
-            echo '<a href="index.php?pagina=' . $pagina + 1 . '" id="paginacionSiguiente"> Siguiente </a>';
+            echo '<a href="index.php?pagina=' . ($pagina + 1) . '" id="paginacionSiguiente"> Siguiente </a>';
 
             ?>
     </div>
