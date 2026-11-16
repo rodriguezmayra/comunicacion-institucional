@@ -385,7 +385,7 @@ header img{
     height: 30vh;
 
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     gap: 0;
 
     border-radius: 15px;
@@ -398,9 +398,22 @@ header img{
    
 }
 
+.notificacionTexto {
+    display: flex;
+    flex-direction: column;
+    width: 70%;
+    overflow: hidden;
+    flex: 1;
+    min-width: 0;
+}
+
+.notificacionImg {
+    flex-shrink: 0;
+}
 
 
-.notificacion > p {
+
+.notificacion p {
 
     display: -webkit-box;
     -webkit-box-orient: vertical;
@@ -548,7 +561,7 @@ header img{
 
 }
 
-.notificacion.expandida > p {
+.notificacion.expandida p {
     display: block !important;
     -webkit-line-clamp: unset !important;
     overflow: visible !important;

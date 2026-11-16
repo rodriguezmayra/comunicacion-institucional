@@ -89,10 +89,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         foreach ($notificaciones as $notificacion) {
         
                         echo '<div class = "notificacion">';
+                        echo '<div class = "notificacionTexto">';
                         echo '<h3>' . $notificacion->getNombre() . '</h3>';
                         echo '<h5>' .$notificacion->getFecha() . '</h5>';
                         echo '<p>' . $notificacion->getDescripcion() . '</p>';
                         echo '<a class="leerMas">Leer más</a>';
+                        echo '</div>';
+                        echo '<div>';
+                        echo '<img class="notificacionImg" src="" alt="Imagen de notificación">';
+                        echo '</div>';
                         echo '</div>';
 
                         }
