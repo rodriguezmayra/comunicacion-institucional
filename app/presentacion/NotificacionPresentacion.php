@@ -40,6 +40,12 @@ class NotificacionPresentacion{
     }
 
 
+    function crearNotificacion (int $identificador, string $nombre, string $descripcion, string $publico, string $fecha): bool{
+        
+        return $this->servicioNotificacion->crearNotificacion($identificador, $nombre, $descripcion, $publico, $fecha);
+        
+    }
+
 
     /*
     public function obtenerNotificacion(){

@@ -1,14 +1,22 @@
 <?php
 
- require_once 'app/logica/CalendarioLogica.php';
- require_once 'app/presentacion/CalendarioPresentacion.php';
- require_once 'app/logica/Entidades/EventoEntidad.php';
+require_once 'app/logica/CalendarioLogica.php';
+require_once 'app/presentacion/CalendarioPresentacion.php';
+require_once 'app/logica/Entidades/EventoEntidad.php';
+
+
+//si no hay sesion manda el main de login
+if (!isset($_SESSION['correoElectronico'])) {
+    header("Location: login.php");
+    exit();
+}
  
- $calendarioLogica = new CalendarioLogica();
+
+$calendarioLogica = new CalendarioLogica();
  
 
  
- $eventos = $calendarioLogica->obtenerEvento();
+$eventos = $calendarioLogica->obtenerEvento();
 
 
 //Obtener zona horaria

@@ -1,8 +1,5 @@
-<!-- <?php
-/*namespace app\logica;
-use app\persistenica\NotificacionDAO;
-use app\persistencia\Conexion;
-*/
+<?php
+
 
 require_once __DIR__ . '/Entidades/NotificacionEntidad.php';
 require_once __DIR__ . '/../persistencia/NotificacionDAO.php';
@@ -37,4 +34,4 @@ class NotificacionLogica{
 
 }
 
-?> -->
+?>
