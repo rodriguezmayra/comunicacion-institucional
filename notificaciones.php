@@ -13,9 +13,7 @@
         $pagina = 1;
     }
 
-    session_start();
-    //echo $_SESSION['grupo'];
-    
+
     $notificaciones = $notificacionPresentacion->obtenerNotificaciones(7, $pagina, $palabraFiltro);
 
 //se ejecuta cuando recibe la peticion de tipo post

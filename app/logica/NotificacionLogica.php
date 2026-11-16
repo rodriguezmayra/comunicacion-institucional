@@ -1,4 +1,4 @@
-<?php
+<!-- <?php
 /*namespace app\logica;
 use app\persistenica\NotificacionDAO;
 use app\persistencia\Conexion;
@@ -25,11 +25,11 @@ class NotificacionLogica{
         
     }
 
-    function obtenerNotificaciones (int $limite, int $pagina, string $palabraFiltro) : ?array {
+    function obtenerNotificaciones (int $limite, int $pagina, bool $autenticado, ?string $grupo, string $palabraFiltro) : ?array {
 
         $desplazamiento = ($pagina - 1) * $limite;
 
-        $notificaciones = $this->notificacionDAO->obtenerNotificaciones($limite, $desplazamiento, $palabraFiltro);
+        $notificaciones = $this->notificacionDAO->obtenerNotificaciones($limite, $desplazamiento, $autenticado, $grupo, $palabraFiltro);
 
         return $notificaciones;
 
@@ -37,4 +37,4 @@ class NotificacionLogica{
 
 }
 
-?>
+?> -->

@@ -20,7 +20,19 @@ class NotificacionPresentacion{
             $limite = 10;
         }
 
-        $notificaciones = $this->servicioNotificacion->obtenerNotificaciones($limite, $pagina, $palabraFiltro);
+        $autenticado = false;
+        $grupo = null;
+
+        session_start();
+
+        if (isset ($_SESSION['correoElectronico'])){
+            $autenticado = true;
+
+            if (isset ($_SESSION['rol']) && $_SESSION['rol'] === "estudiante"){
+                $grupo = $_SESSION['grupo'] ?? null;
+            }
+        }
+        $notificaciones = $this->servicioNotificacion->obtenerNotificaciones($limite, $pagina, $autenticado, $grupo, $palabraFiltro);
 
         return $notificaciones;
 
