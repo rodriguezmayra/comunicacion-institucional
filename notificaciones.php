@@ -13,9 +13,7 @@
         $pagina = 1;
     }
 
-    session_start();
-    //echo $_SESSION['grupo'];
-    
+
     $notificaciones = $notificacionPresentacion->obtenerNotificaciones(7, $pagina, $palabraFiltro);
 
 //se ejecuta cuando recibe la peticion de tipo post
@@ -40,11 +38,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $fecha = $datos['fecha'];
             
             //crea el objeto en la clase logica e inserta los datos recibidos
-            $logica = new NotificacionLogica();
+            $pre = new NotificacionPresentacion();
             //boolean dependiendo si se guardan de manera correcta los datos
-
-            //LA VISTA NO DEBE LLAMAR A MÉTODOS DE LÓGICA, debe comunicarse exclusivamente con la presentación
-            $resultado = $logica->crearNotificacion($identificador, $nombre, $descripcion, $publico, $fecha);
+            $resultado = $pre->crearNotificacion($identificador, $nombre, $descripcion, $publico, $fecha);
 
             //condicion enviando una respuesta en formato json, dependiendo si tuvo éxito
             if ($resultado) {
@@ -52,8 +48,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             } else {
                 echo json_encode(['success' => false, 'mensaje' => 'No se pudo guardar la notificación.']);
             }
-        } catch (Exception $e) {
-            echo json_encode(['success' => false, 'mensaje' => $e->getMessage()]);
+        } catch (\Throwable $e) { // Captura cualquier Exception o Error fatal
+            echo json_encode(['success' => false, 'mensaje' => 'Error: ' . $e->getMessage()]);
         }
     } else {
         echo json_encode(['success' => false, 'mensaje' => 'Datos JSON inválidos o vacíos.']);
@@ -110,13 +106,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <div id="paginacion">
             <?php
             if ($pagina>1)
-            echo '<a href="index.php?pagina=' . $pagina - 1 . '" id="paginacionAnterior"> Anterior </a>';
+            echo '<a href="index.php?pagina=' . ($pagina - 1) . '" id="paginacionAnterior"> Anterior </a>';
 
             for($i = 1; $i <= 10; $i++){
                 echo '<a href="index.php?pagina=' . $i . '" class="paginacionIndices">' . $i . '</a>';
             }
 
-            echo '<a href="index.php?pagina=' . $pagina + 1 . '" id="paginacionSiguiente"> Siguiente </a>';
+            echo '<a href="index.php?pagina=' . ($pagina + 1) . '" id="paginacionSiguiente"> Siguiente </a>';
 
             ?>
     </div>

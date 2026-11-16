@@ -82,29 +82,34 @@ if (horarios && calendario && notificaciones && iniciarSesionA){
 
     });
 
-    horarios.addEventListener("click", async () =>{
+    horarios.addEventListener("click", async (event) => {
+    event.preventDefault(); 
 
-        const respuestaHorarios = await fetch ("horarios.php");
-
-        const horarioTexto = await respuestaHorarios.text();
-
-        indexMain.innerHTML = horarioTexto;
-
-        notificaciones.classList.remove("mainActivo");
-        notificaciones.classList.add("bordeBajo");
-
-        horarios.classList.add("mainActivo");
-        horarios.classList.remove("bordeBajo");
-
-        calendario.classList.remove("mainActivo");
-        calendario.classList.add("bordeBajo");
-
-
+    //guarda el contenido e incluye las cookies de la sesion
+    const respuesta = await fetch('horarios.php', {
+        credentials: 'same-origin'
     });
+
+    const textoRespuesta = await respuesta.text();
+    indexMain.innerHTML = textoRespuesta;
+
+    notificaciones.classList.remove("mainActivo");
+    notificaciones.classList.add("bordeBajo");
+
+    horarios.classList.add("mainActivo");
+    horarios.classList.remove("bordeBajo");
+
+    calendario.classList.remove("mainActivo");
+    calendario.classList.add("bordeBajo");
+    
+    });
+
 
     calendario.addEventListener("click", async () => {
 
-        const respuestaCalendario = await fetch ("calendario.php");
+        const respuestaCalendario = await fetch('calendario.php', {
+        credentials: 'same-origin'
+        });
 
         const calendarioTexto = await respuestaCalendario.text();
 
@@ -418,6 +423,7 @@ document.addEventListener("click", async (event) => {
             });
             //recibe la respuesta de la db y lo guarda dentro de una variable
             const textoRespuesta = await respuesta.text();
+            console.log("Respuesta cruda del servidor:", JSON.stringify(textoRespuesta));
             //transforma la respuesta json, y la transforma en un objeto javascript
             const resultado = JSON.parse(textoRespuesta);
             

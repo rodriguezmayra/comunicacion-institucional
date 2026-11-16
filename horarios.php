@@ -1,5 +1,12 @@
+<?php
+session_start();
+//si no hay sesion manda el main de login
+if (!isset($_SESSION['correoElectronico'])) {
+    header("Location: login.php");
+    exit();
+}
+?>
 <main id ="mainHorarios">
-
     <h2>HORARIO SEMANAL</h2>
     <div>
         <table id="tablaHorarios">
@@ -98,6 +105,5 @@
             </tbody>
         </table>
     </div>
-</body>
+    </main>   
 
-    </main>

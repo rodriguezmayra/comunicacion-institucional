@@ -21,7 +21,7 @@ class NotificacionDAO extends DAOGenerico{
     }
 
     function getColumnas(): array{
-        return ["identificador", "nombre", "descripcion", "publico"];
+        return ["identificador", "nombre", "descripcion", "publico", "fecha"];
 
     }
 
@@ -37,15 +37,45 @@ class NotificacionDAO extends DAOGenerico{
     }
 
 
-     function obtenerNotificaciones (int $limite, int $desplazamiento, string $palabraFiltro): array {
+     function obtenerNotificaciones (int $limite, int $desplazamiento, bool $restringidas, ?string $grupo,  string $palabraFiltro): array {
+        
 
-            $sql = "SELECT identificador, nombre, descripcion, publico, fecha FROM notificaciones  WHERE nombre LIKE ? ORDER BY identificador DESC LIMIT ? OFFSET ? ";
+            $condiciones = ["publico = 'general'"];
+            $parametros = [];
+            $tipos = "";
+
+
+            if ($restringidas){
+                $condiciones[] = "publico = 'restringido'";
+            }
+
+            if ($grupo !== null){
+                $condiciones[] = "publico = ?";
+                $parametros[] = $grupo;
+                $tipos .= "s";
+            }
+
+            //Parámetro y tipo para la palabra de filtro
+            $parametros [] = "%" . $palabraFiltro . "%";
+            $tipos .= "s";
+
+
+            $parametros[] = $limite;
+            $parametros[] = $desplazamiento;
+            $tipos .= "ii";
+            $sql = "SELECT identificador, nombre, descripcion, publico, fecha FROM notificaciones WHERE (" . implode(" OR ", $condiciones) . " ) AND nombre LIKE ? ORDER BY fecha DESC, identificador DESC LIMIT ? OFFSET ?";
 
             $conexion = $this->conexion;
 
             $sentencia = $conexion->prepare($sql);
-            $likeValue = "%" . $palabraFiltro. "%";
-            $sentencia->bind_param("sii", $likeValue , $limite, $desplazamiento);
+
+            $referencias = [$tipos];
+
+            foreach ($parametros as $indice => $parametro) {
+                $referencias[] = &$parametros[$indice];
+            }
+            
+            call_user_func_array ([$sentencia, "bind_param"], $referencias);
             $sentencia->execute();
 
             $resultado = $sentencia->get_result();
@@ -63,25 +93,20 @@ class NotificacionDAO extends DAOGenerico{
 
         }
 
-     function insertarNotificacion (NotificacionEntidad $notificacion){
-        
-            $identificador = $notificacion->getIdentificador();
-            $nombre = $notificacion->getNombre();
-            $descripcion = $notificacion->getDescripcion();
-            $publico = $notificacion->getPublico();
-            $fecha = $notificacion->getFecha();
-            
-            $sql = "INSERT INTO notificaciones (identificador, nombre, descripcion, publico, fecha) VALUES (?, ?, ?, ?, ?)";  
+    function insertarNotificacion(NotificacionEntidad $notificacion): bool {
 
-            $conexion = $this->conexion; 
+        $datos = [
+            $notificacion->getIdentificador(),
+            $notificacion->getNombre(),
+            $notificacion->getDescripcion(),
+            $notificacion->getPublico(),
+            $notificacion->getFecha()
+        ];
 
-            $sentencia = $conexion->prepare($sql);
-            $sentencia->bind_param("issss", $identificador, $nombre, $descripcion, $publico, $fecha);
-            $sentencia ->execute();
+        return $this->insertarFila($datos);
+
+    }
             
-            $sentencia->close();
-            
-        }
 }
 
 ?>

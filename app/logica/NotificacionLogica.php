@@ -1,8 +1,5 @@
 <?php
-/*namespace app\logica;
-use app\persistenica\NotificacionDAO;
-use app\persistencia\Conexion;
-*/
+
 
 require_once __DIR__ . '/Entidades/NotificacionEntidad.php';
 require_once __DIR__ . '/../persistencia/NotificacionDAO.php';
@@ -16,25 +13,20 @@ class NotificacionLogica{
     }
 
 
+    // En una versión futura el sistema podría registrar, además, el identificador de el usuario que creó la notificación
     function crearNotificacion (int $identificador, string $nombre, string $descripcion, string $publico, string $fecha): bool{
-
-        $conexion = Conexion::getInstancia();
 
         $notificacion = new NotificacionEntidad($identificador, $nombre, $descripcion, $publico, $fecha);  
 
-        $notificacionDAO = new NotificacionDAO();
-
-        $notificacionDAO->insertarNotificacion($notificacion);
-
-        return true;
+        return $this->notificacionDAO->insertarNotificacion($notificacion);
         
     }
 
-    function obtenerNotificaciones (int $limite, int $pagina, string $palabraFiltro) : ?array {
+    function obtenerNotificaciones (int $limite, int $pagina, bool $autenticado, ?string $grupo, string $palabraFiltro) : ?array {
 
         $desplazamiento = ($pagina - 1) * $limite;
 
-        $notificaciones = $this->notificacionDAO->obtenerNotificaciones($limite, $desplazamiento, $palabraFiltro);
+        $notificaciones = $this->notificacionDAO->obtenerNotificaciones($limite, $desplazamiento, $autenticado, $grupo, $palabraFiltro);
 
         return $notificaciones;
 

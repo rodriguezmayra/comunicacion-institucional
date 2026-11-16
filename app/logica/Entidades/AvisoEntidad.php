@@ -8,4 +8,4 @@ class AvisoEntidad extends NotificacionEntidad {
 
 
 }
-php?>
+?>

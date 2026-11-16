@@ -18,7 +18,7 @@ abstract class DAOGenerico{
         $sql = "SELECT * FROM {$this->getTabla()} WHERE {$this->getClavePrimaria()} = ?";
 
 
-        if (is_int($identificador) || is_bool($identidicador)){
+        if (is_int($identificador) || is_bool($identificador)){
             $tipo = "i";
         }elseif (is_float($identificador)){
             $tipo = "d";
@@ -45,7 +45,7 @@ abstract class DAOGenerico{
     
         $ordenamiento = strtoupper($ordenamiento) == "DESC" ? "DESC" : "ASC";
 
-        $sql = "SELECT * FROM {$this->getTabla()} ORDER BY `{$columna}` {$ordenamiento} LIMIT ? OFFSET ?";
+        $sql = "SELECT * FROM {$this->getTabla()} ORDER BY {$columna} {$ordenamiento} LIMIT ? OFFSET ?";
 
         $sentencia = $this->conexion->prepare($sql);
         $sentencia->bind_param("ii", $limite, $desplazamiento);
@@ -67,9 +67,9 @@ abstract class DAOGenerico{
 
 
 
-    /*protected function insertarFila (array $datos) : bool {
+    protected function insertarFila (array $datos) : bool {
 
-        if (count($datos) === 0){
+        if (count($datos) === 0 || count($datos) !== count($this->getColumnas())){
             return false;
         }
 
@@ -78,14 +78,38 @@ abstract class DAOGenerico{
 
         $sql = "INSERT INTO {$this->getTabla()} ({$columnas}) VALUES ({$marcadoresPosicion})";
 
-        //$resultado = $this->conexion->execute_query($sql, $datos);
-        $sentencia = $this->conexion->prepare($sql);
-        $sentencia->bind_param()
+         $sentencia = $this->conexion->prepare($sql);
 
+        $tipos = "";
 
-        return $resultado !== false;
+        foreach ($datos as $dato) {
+            if (is_int($dato) || is_bool($dato)) {
+                $tipos .= "i";
+            } elseif (is_float($dato)) {
+                $tipos .= "d";
+            } else {
+                $tipos .= "s";
+            }
+        }
         
-    }*/
+        $parametros = [];
+        $parametros[] = $tipos;
+
+        foreach ($datos as $i => $dato) {
+            //bind_param debe recibir una variable o referencia
+            $parametros[] = &$datos[$i];
+        }
+
+        //Llamamos al metodo bind_param con una cantidad indefinida de parámetros
+        call_user_func_array([$sentencia, "bind_param"], $parametros);
+
+        $resultado = $sentencia->execute();
+
+        $sentencia->close();
+
+        return $resultado;
+        
+    }
 
 
 
