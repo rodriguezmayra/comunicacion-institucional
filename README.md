@@ -32,6 +32,26 @@ El acceso a algunas funcionalidades está limitado a ciertos tipos de usuario.
 
 <img src="https://github.com/user-attachments/assets/fbcd1b0d-a892-4aef-98c6-12874830702f" alt="Captura de pantalla de la aplicación" width="700" />
 
+## Demo
+
+[Click aquí para probar nuestra aplicación desde tu navegador](https://comunicacion-institucional.freehosting.dev/comunicacion-institucional/)
+
+Se sugiere visitar el sitio desde un equipo de escritorio.
+
+**Credenciales de acceso para pruebas:**
+
+Estudiante:
+
+usuario: `lucas.martinez@correo.com`
+contraseña: `estudiante123` 
+
+
+Administrativo:
+
+usuario: `facundo.sosa@correo.com`
+contraseña: `administrativo123`
+
+Aclaración: Este enlace corresponde a una versión de demostración en un servicio de hosting gratuito (InfinityFree), por lo que podría incluir errores que no se encuentren en el desarrollo origina de la aplicación.
 
 ## Requisitos previos del sistema
 

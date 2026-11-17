@@ -80,6 +80,8 @@ if (horarios && calendario && notificaciones && iniciarSesionA){
 
         inicializarAgregarUsuario();
 
+        inicializarFotosNotificaciones();
+
     });
 
     horarios.addEventListener("click", async (event) => {
@@ -440,4 +442,30 @@ document.addEventListener("click", async (event) => {
         }
     }
 });
+
+
+function inicializarFotosNotificaciones() {
+    const imagenes = document.querySelectorAll('.notificacionImg');
+
+    const imagenesLocales = [
+        'static/img/fotoNotificaciones1.jpeg',
+        'static/img/fotoNotificaciones2.jpeg',
+        'static/img/fotoNotificaciones3.jpeg',
+        'static/img/fotoNotificaciones4.jpeg',
+        'static/img/fotoNotificaciones5.jpeg',
+        'static/img/fotoNotificaciones6.jpeg',
+        'static/img/fotoNotificaciones7.jpeg',
+        'static/img/fotoNotificaciones8.jpeg',
+        'static/img/fotoNotificaciones9.jpeg',
+        'static/img/fotoNotificaciones10.jpeg',
+    ];
+
+    imagenes.forEach((img) => {
+        console.log("a");
+
+        const randomImg = imagenesLocales[Math.floor(Math.random() * imagenesLocales.length)];
+        img.src = randomImg;
+
+    });
+}
 

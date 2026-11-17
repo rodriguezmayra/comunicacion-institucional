@@ -314,23 +314,14 @@ header img{
     box-shadow: 0 0 7px 1px #e1e8eb;
 }
 
-.fa-newspaper{
-    background-color: #ffffff;
-    box-shadow: 0 0 7px 1px #e1e8eb;
-    border-radius: 5px;
+#newpapers:hover{
+    cursor:pointer;
     font-size: 1.1em;
-    padding:0.4%;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    transition: all 0.4s ease-in-out;
 }
 
-.fa-newspaper:hover{
+#userPlus:hover{
     cursor:pointer;
-    background-color: #dfe6e9;
+    font-size: 1.1em;
 }
 
 #mainNotificaciones{  
@@ -377,15 +368,16 @@ header img{
 
 .notificacion {
 
-    padding-left:5%;
-    padding-right:7%;
+    padding-left:3%;
+    padding-right: 0.5%;
     padding-top: 1%;
     padding-bottom:1%;
-    width: 40vw;
+    width: 46vw;
     height: 30vh;
 
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    align-items: center;
     gap: 0;
 
     border-radius: 15px;
@@ -398,9 +390,29 @@ header img{
    
 }
 
+.notificacionTexto {
+    display: flex;
+    flex-direction: column;
+    width: 70%;
+    height: 100%;
+    overflow: hidden;
+    flex: 1;
+    min-width: 0;
+    padding-right: 1%;
+}
+
+.notificacionImg {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 10px;
+    flex-shrink: 0;
+    box-shadow: 0 0 7px 1px #ebedee;
+}
 
 
-.notificacion > p {
+
+.notificacion p {
 
     display: -webkit-box;
     -webkit-box-orient: vertical;
@@ -416,9 +428,9 @@ header img{
 }
 
 .notificacion h5 {
-
     margin-top: 0.5%;
     margin-bottom: 0.5%;
+    color:#383434;
 }
 
 .leerMas {
@@ -548,7 +560,7 @@ header img{
 
 }
 
-.notificacion.expandida > p {
+.notificacion.expandida p {
     display: block !important;
     -webkit-line-clamp: unset !important;
     overflow: visible !important;

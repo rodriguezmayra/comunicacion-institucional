@@ -68,7 +68,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <form method="GET">
                 <input type="text" placeholder="Buscar notificaciones" name = "palabraFiltro" value = "<?php echo htmlspecialchars($palabraFiltro); ?>" ></input>
             </form>
-            <a id="newpapers"><i class="fa-solid fa-newspaper" ></i></a>
+            <a id="newpapers"><i class="fa-solid fa-file-circle-plus"></i></a>
             <a id="userPlus"><i class="fa-solid fa-user-plus"></i></a>
         </div> 
 
@@ -85,10 +85,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         foreach ($notificaciones as $notificacion) {
         
                         echo '<div class = "notificacion">';
+                        echo '<div class = "notificacionTexto">';
                         echo '<h3>' . $notificacion->getNombre() . '</h3>';
                         echo '<h5>' .$notificacion->getFecha() . '</h5>';
                         echo '<p>' . $notificacion->getDescripcion() . '</p>';
                         echo '<a class="leerMas">Leer más</a>';
+                        echo '</div>';
+                        echo '<div>';
+                        echo '<img class="notificacionImg" src="" alt="Imagen de notificación">';
+                        echo '</div>';
                         echo '</div>';
 
                         }
