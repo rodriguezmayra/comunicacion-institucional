@@ -34,6 +34,7 @@
 
         function obtenerEvento (): array {
 
+
             $sql = "SELECT 
             e.identificador,
             e.hora_inicio,
@@ -42,9 +43,11 @@
             e.fecha_fin,
             n.nombre AS nombre_notificacion
 
+        
         FROM eventos e
 
-        INNER JOIN Notificaciones n
+        
+        INNER JOIN notificaciones n
         ON e.identificador = n.identificador
 
         ORDER BY e.identificador";
