@@ -68,7 +68,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <form method="GET">
                 <input type="text" placeholder="Buscar notificaciones" name = "palabraFiltro" value = "<?php echo htmlspecialchars($palabraFiltro); ?>" ></input>
             </form>
-            <a id="newpapers"><i class="fa-solid fa-newspaper" ></i></a>
+            <a id="newpapers"><i class="fa-solid fa-file-circle-plus"></i></a>
             <a id="userPlus"><i class="fa-solid fa-user-plus"></i></a>
         </div> 
 
