@@ -139,7 +139,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </select>
             <div id="opcionesGrupos" class="oculto">
 
-                <select id="grupoSelect" name="Grupo"> 
+                <select id="grupoSelect" name="Grupo" required> 
 
                     <option value="" disabled selected>Selecciona un grupo...</option>
                     <option value="MC">Informática</option>
@@ -147,7 +147,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                 </select>
 
-                <select id="añoGrupoSelect" name="AñoGrupo"> 
+                <select id="añoGrupoSelect" name="AñoGrupo" required> 
 
                     <option value="" disabled selected>Selecciona un año...</option>
                     <option value="1ero">Primero</option>

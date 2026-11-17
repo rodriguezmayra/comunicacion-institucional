@@ -22,17 +22,22 @@ class NotificacionPresentacion{
 
         $autenticado = false;
         $grupo = null;
+        $esAdministrativo = false;
 
         session_start();
 
         if (isset ($_SESSION['correoElectronico'])){
             $autenticado = true;
 
-            if (isset ($_SESSION['rol']) && $_SESSION['rol'] === "estudiante"){
-                $grupo = $_SESSION['grupo'] ?? null;
+            if (isset ($_SESSION['rol'])){
+               if($_SESSION['rol'] === "estudiante"){
+                    $grupo = $_SESSION['grupo'] ?? null;
+               }elseif($_SESSION['rol'] === "administrativo"){
+                    $esAdministrativo = true;
+               }
             }
         }
-        $notificaciones = $this->servicioNotificacion->obtenerNotificaciones($limite, $pagina, $autenticado, $grupo, $palabraFiltro);
+        $notificaciones = $this->servicioNotificacion->obtenerNotificaciones($limite, $pagina, $autenticado, $grupo, $palabraFiltro, $esAdministrativo);
 
         return $notificaciones;
 

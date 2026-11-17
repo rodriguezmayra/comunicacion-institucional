@@ -37,22 +37,31 @@ class NotificacionDAO extends DAOGenerico{
     }
 
 
-     function obtenerNotificaciones (int $limite, int $desplazamiento, bool $restringidas, ?string $grupo,  string $palabraFiltro): array {
+     function obtenerNotificaciones (int $limite, int $desplazamiento, bool $restringidas, ?string $grupo,  string $palabraFiltro, bool $obtenerTodas): array {
         
-
-            $condiciones = ["publico = 'general'"];
+            $condiciones = [];
             $parametros = [];
             $tipos = "";
 
+            if (! $obtenerTodas){
 
-            if ($restringidas){
-                $condiciones[] = "publico = 'restringido'";
-            }
+                $condiciones[] = "publico = 'general'";
 
-            if ($grupo !== null){
-                $condiciones[] = "publico = ?";
-                $parametros[] = $grupo;
-                $tipos .= "s";
+
+                if ($restringidas){
+                    $condiciones[] = "publico = 'restringido'";
+                }
+
+                if ($grupo !== null){
+                    $condiciones[] = "publico = ?";
+                    $parametros[] = $grupo;
+                    $tipos .= "s";
+                }
+
+            }else{
+
+                $condiciones[] = " 1 = 1 ";
+
             }
 
             //Parámetro y tipo para la palabra de filtro

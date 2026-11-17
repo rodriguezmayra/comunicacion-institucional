@@ -22,11 +22,11 @@ class NotificacionLogica{
         
     }
 
-    function obtenerNotificaciones (int $limite, int $pagina, bool $autenticado, ?string $grupo, string $palabraFiltro) : ?array {
+    function obtenerNotificaciones (int $limite, int $pagina, bool $autenticado, ?string $grupo, string $palabraFiltro, bool $obtenerTodas) : ?array {
 
         $desplazamiento = ($pagina - 1) * $limite;
 
-        $notificaciones = $this->notificacionDAO->obtenerNotificaciones($limite, $desplazamiento, $autenticado, $grupo, $palabraFiltro);
+        $notificaciones = $this->notificacionDAO->obtenerNotificaciones($limite, $desplazamiento, $autenticado, $grupo, $palabraFiltro, $obtenerTodas);
 
         return $notificaciones;
 
