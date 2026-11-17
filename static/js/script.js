@@ -153,6 +153,8 @@ if (horarios && calendario && notificaciones && iniciarSesionA){
 
         inicializarAgregarUsuario();
 
+        inicializarFotosNotificaciones();
+
     });
 
     iniciarSesionA.addEventListener("click", async () => {
@@ -329,7 +331,7 @@ function inicializarExpandirNotificaciones() {
 function inicializarAgregarUsuario() {
 
     const agregarUsuario = document.querySelector("#userPlus");
-    
+    if (agregarUsuario){
     //fetch para agregar usuario
     agregarUsuario.addEventListener("click", async () => {
 
@@ -350,7 +352,7 @@ function inicializarAgregarUsuario() {
 
         inicializarVolverCrearUsuario();
     });
-    
+    }
     //fetch para que vuelva al main de notificaciones desde crear usuario
     function inicializarVolverCrearUsuario() {
         const volverCrearUsuario = document.querySelector("#volverCrearUsuario");

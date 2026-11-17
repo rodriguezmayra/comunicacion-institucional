@@ -68,8 +68,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <form method="GET">
                 <input type="text" placeholder="Buscar notificaciones" name = "palabraFiltro" value = "<?php echo htmlspecialchars($palabraFiltro); ?>" ></input>
             </form>
+            <?php
+            if (isset($_SESSION['correoElectronico']) && $_SESSION['rol'] === 'administrativo'):
+            ?>
             <a id="newpapers"><i class="fa-solid fa-file-circle-plus"></i></a>
             <a id="userPlus"><i class="fa-solid fa-user-plus"></i></a>
+            <?php 
+            endif;
+            ?>
         </div> 
 
             <div id = "contenedorNotificaciones">
