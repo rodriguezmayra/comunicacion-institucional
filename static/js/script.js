@@ -31,9 +31,32 @@ const notificaciones = document.querySelector("#notificaciones");
 const iniciarSesionA = document.querySelector("#iniciarSesionA");
 const cerrarSesionA = document.querySelector("#cerrarSesionA");
 const indexMain = document.querySelector("#mainInicio");
+if(iniciarSesionA){
+    
+    iniciarSesionA.addEventListener("click", async () => {
+        
+        const respuestaLogin = await fetch("login.php");
 
+        const loginTexto = await respuestaLogin.text();
+
+        indexMain.innerHTML = loginTexto;
+
+        notificaciones.classList.remove("mainActivo");
+        notificaciones.classList.add("bordeBajo");
+
+        horarios.classList.remove("mainActivo");
+        horarios.classList.add("bordeBajo");
+
+        calendario.classList.remove("mainActivo");
+        calendario.classList.add("bordeBajo");
+
+        inicializarLoginButton();
+    
+
+    });
+}
 //Comprueba si existen antes de ejecutar el código para evitar errores
-if (horarios && calendario && notificaciones && iniciarSesionA){
+if (horarios && calendario && notificaciones){
 
     //Agrega un evento cuando se carga el DOM
     document.addEventListener("DOMContentLoaded", async () => {
@@ -157,27 +180,7 @@ if (horarios && calendario && notificaciones && iniciarSesionA){
 
     });
 
-    iniciarSesionA.addEventListener("click", async () => {
-        
-        const respuestaLogin = await fetch("login.php");
-
-        const loginTexto = await respuestaLogin.text();
-
-        indexMain.innerHTML = loginTexto;
-
-        notificaciones.classList.remove("mainActivo");
-        notificaciones.classList.add("bordeBajo");
-
-        horarios.classList.remove("mainActivo");
-        horarios.classList.add("bordeBajo");
-
-        calendario.classList.remove("mainActivo");
-        calendario.classList.add("bordeBajo");
-
-        inicializarLoginButton();
-
-
-    });
+    
         
 }
 else {

@@ -22,9 +22,20 @@ session_start();
 <body>
     
     <header>
-
+        <?php 
+            if(isset($_SESSION['correoElectronico']) && !empty($_SESSION['correoElectronico'])):
+        ?>
+        <div><a id="iniciarSesionA" href="logout.php">Cerrar sesión</a></div>
+        <?php
+            endif;
+        ?>
+        <?php
+            if(!isset($_SESSION['correoElectronico'])):
+        ?>
         <div><a id="iniciarSesionA">Iniciar Sesión</a></div>
-
+        <?php
+            endif;
+        ?>
         <nav>
 
         <img src="/comunicacion-institucional/static/img/logo.png" alt="Logo del sitio">
