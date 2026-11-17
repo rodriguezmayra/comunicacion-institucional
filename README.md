@@ -32,6 +32,9 @@ El acceso a algunas funcionalidades está limitado a ciertos tipos de usuario.
 
 <img src="https://github.com/user-attachments/assets/fbcd1b0d-a892-4aef-98c6-12874830702f" alt="Captura de pantalla de la aplicación" width="700" />
 
+## Demo
+
+[Click aquí para probar nuestra aplicación desde tu navegador](https://comunicacion-institucional.freehosting.dev/comunicacion-institucional/)
 
 ## Requisitos previos del sistema
 
