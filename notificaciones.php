@@ -1,5 +1,5 @@
 <?php
-
+    
     require_once 'app/presentacion/NotificacionPresentacion.php';
     require_once 'app/logica/Entidades/NotificacionEntidad.php';
 
@@ -68,6 +68,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <form method="GET">
                 <input type="text" placeholder="Buscar notificaciones" name = "palabraFiltro" value = "<?php echo htmlspecialchars($palabraFiltro); ?>" ></input>
             </form>
+
             <?php
             if (isset($_SESSION['correoElectronico']) && $_SESSION['rol'] === 'administrativo'):
             ?>
