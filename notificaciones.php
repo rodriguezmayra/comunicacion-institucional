@@ -1,5 +1,5 @@
 <?php
-
+    
     require_once 'app/presentacion/NotificacionPresentacion.php';
     require_once 'app/logica/Entidades/NotificacionEntidad.php';
 
@@ -37,12 +37,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $publico = $datos['publico'];
             $fecha = $datos['fecha'];
             
-            //crea el objeto en la clase logica e inserta los datos recibidos
-            $logica = new NotificacionLogica();
+            //crea el objeto en la clase prsentacion e inserta los datos recibidos
+            $pre = new NotificacionPresentacion();
             //boolean dependiendo si se guardan de manera correcta los datos
-
-            //LA VISTA NO DEBE LLAMAR A MÉTODOS DE LÓGICA, debe comunicarse exclusivamente con la presentación
-            $resultado = $logica->crearNotificacion($identificador, $nombre, $descripcion, $publico, $fecha);
+            $resultado = $pre->crearNotificacion($identificador, $nombre, $descripcion, $publico, $fecha);
 
             //condicion enviando una respuesta en formato json, dependiendo si tuvo éxito
             if ($resultado) {
@@ -50,8 +48,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             } else {
                 echo json_encode(['success' => false, 'mensaje' => 'No se pudo guardar la notificación.']);
             }
-        } catch (Exception $e) {
-            echo json_encode(['success' => false, 'mensaje' => $e->getMessage()]);
+        } catch (\Throwable $e) { // Captura cualquier Exception o Error fatal
+            echo json_encode(['success' => false, 'mensaje' => 'Error: ' . $e->getMessage()]);
         }
     } else {
         echo json_encode(['success' => false, 'mensaje' => 'Datos JSON inválidos o vacíos.']);
@@ -70,8 +68,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <form method="GET">
                 <input type="text" placeholder="Buscar notificaciones" name = "palabraFiltro" value = "<?php echo htmlspecialchars($palabraFiltro); ?>" ></input>
             </form>
-            <a id="newpapers"><i class="fa-solid fa-newspaper" ></i></a>
+
+            <?php
+            if (isset($_SESSION['correoElectronico']) && $_SESSION['rol'] === 'administrativo'):
+            ?>
+            <a id="newpapers"><i class="fa-solid fa-file-circle-plus"></i></a>
             <a id="userPlus"><i class="fa-solid fa-user-plus"></i></a>
+            <a id="calendarioPlus"><i class="fa-solid fa-calendar-plus"></i></a>
+            <?php 
+            endif;
+            ?>
         </div> 
 
             <div id = "contenedorNotificaciones">
@@ -87,10 +93,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         foreach ($notificaciones as $notificacion) {
         
                         echo '<div class = "notificacion">';
+                        echo '<div class = "notificacionTexto">';
                         echo '<h3>' . $notificacion->getNombre() . '</h3>';
                         echo '<h5>' .$notificacion->getFecha() . '</h5>';
                         echo '<p>' . $notificacion->getDescripcion() . '</p>';
                         echo '<a class="leerMas">Leer más</a>';
+                        echo '</div>';
+                        echo '<div>';
+                        echo '<img class="notificacionImg" src="" alt="Imagen de notificación">';
+                        echo '</div>';
                         echo '</div>';
 
                         }
@@ -141,7 +152,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </select>
             <div id="opcionesGrupos" class="oculto">
 
-                <select id="grupoSelect" name="Grupo"> 
+                <select id="grupoSelect" name="Grupo" required> 
 
                     <option value="" disabled selected>Selecciona un grupo...</option>
                     <option value="MC">Informática</option>
@@ -149,7 +160,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                 </select>
 
-                <select id="añoGrupoSelect" name="AñoGrupo"> 
+                <select id="añoGrupoSelect" name="AñoGrupo" required> 
 
                     <option value="" disabled selected>Selecciona un año...</option>
                     <option value="1ero">Primero</option>

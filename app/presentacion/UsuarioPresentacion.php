@@ -1,44 +1,58 @@
 <?php
 
 require_once __DIR__ . '/../logica/UsuarioLogica.php';
+class UsuarioPresentacion{
+    
+    private UsuarioLogica $UsuarioL;
 
-$servicioUsuario = new UsuarioLogica ();
+    public function __construct() {
+       $this->UsuarioL = new UsuarioLogica();
+    }
 
-if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    public function CrearUsuario(String $correoElectronico, String $nombre, String $contrasenia, String $Rol): bool{
+        return $this->UsuarioL->CrearUsuario($correoElectronico,$nombre,$contrasenia,$Rol);
+    }
+
+}
+// Solo ejecuta el login si el navegador llama directamente a usuraioPresentacion.php y no con el requiere once
+if (realpath(__FILE__) === realpath($_SERVER['SCRIPT_FILENAME'])) {
+    $servicioUsuario = new UsuarioLogica ();
+
+    if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
 
-    $correoElectronico = trim($_POST["correoElectronico"]);
-    $contrasenia = $_POST["contrasenia"];
+        $correoElectronico = trim($_POST["correoElectronico"]);
+        $contrasenia = $_POST["contrasenia"];
 
 
-    if(empty($correoElectronico) || empty($contrasenia)){
-        header("Location: ../../error.php");
-        exit;
-    } 
+        if(empty($correoElectronico) || empty($contrasenia)){
+            header("Location: ../../error.php");
+            exit;
+        } 
 
-    $datosUsuario = $servicioUsuario->iniciarSesion($correoElectronico, $contrasenia);
+        $datosUsuario = $servicioUsuario->iniciarSesion($correoElectronico, $contrasenia);
     
 
 
-    if ($datosUsuario !== null){
+        if ($datosUsuario !== null){
         
-        session_start();
+            session_start();
 
     
-        $_SESSION["correoElectronico"] = $datosUsuario["correoElectronico"];
+            $_SESSION["correoElectronico"] = $datosUsuario["correoElectronico"];
 
-        $_SESSION["nombre"] = $datosUsuario["nombre"];
+            $_SESSION["nombre"] = $datosUsuario["nombre"];
 
-        $_SESSION["rol"] = $datosUsuario["rol"];
+            $_SESSION["rol"] = $datosUsuario["rol"];
 
-        if ($datosUsuario["rol"] === "estudiante") {
+            if ($datosUsuario["rol"] === "estudiante") {
         
-            $_SESSION["grupo"] = $datosUsuario["grupo"];
+                $_SESSION["grupo"] = $datosUsuario["grupo"];
 
-        }
+            }
 
-        header("Location: ../../index.php");
-        exit;
+            header("Location: ../../index.php");
+            exit;
 
     }else{
 
@@ -56,7 +70,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
 }
 
-
-
+}
 
 ?>

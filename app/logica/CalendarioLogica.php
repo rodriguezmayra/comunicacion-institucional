@@ -12,18 +12,15 @@ class CalendarioLogica{
     }
 
 
-      function crearEvento (int $identificador,DateTimeImmutable $horaInicio, ?DateTimeImmutable $horaFinal, string $fechaInicio, string $fechaFinal ): bool{
+    public function crearEvento(int $identificador,string $nombre,string $descripcion,string $publico,string $fecha,string $fechaI,string $fechaF,string $horaI,string $horaF): bool {
+    //pasa los string de las horas a datetime
+    $horaInicio = new DateTimeImmutable($horaI);
+    $horaFinal = new DateTimeImmutable($horaF);
 
-        $conexion = Conexion::getInstancia();
+    $evento = new EventoEntidad(
+        $identificador,$nombre,$descripcion,$publico,$fecha,$horaInicio,$horaFinal,$fechaI,$fechaF);
 
-        $evento = new EventoEntidad($identificador, $horaInicio, $horaFinal, $fechaInicio, $fechaFinal );  
-
-        $CalendarioDAO = new CalendarioDAO();
-
-        $CalendarioDAO->insertarEvento($evento);
-
-        return true;
-        
+        return $this->CalendarioDAO->insertarEvento($evento);
     }
 
     function obtenerEvento () : ?array {

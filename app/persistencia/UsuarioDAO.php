@@ -19,7 +19,7 @@ class UsuarioDAO extends DAOGenerico {
 
     public function obtenerUsuario($identificador) : ?array {    
             return $this->obtenerFila($identificador);
-        }
+    }
 
         public function insertarUser (array $datos) : bool {
             return $this->insertarFila($datos);

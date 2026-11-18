@@ -31,9 +31,32 @@ const notificaciones = document.querySelector("#notificaciones");
 const iniciarSesionA = document.querySelector("#iniciarSesionA");
 const cerrarSesionA = document.querySelector("#cerrarSesionA");
 const indexMain = document.querySelector("#mainInicio");
+if(iniciarSesionA){
+    
+    iniciarSesionA.addEventListener("click", async () => {
+        
+        const respuestaLogin = await fetch("login.php");
 
+        const loginTexto = await respuestaLogin.text();
+
+        indexMain.innerHTML = loginTexto;
+
+        notificaciones.classList.remove("mainActivo");
+        notificaciones.classList.add("bordeBajo");
+
+        horarios.classList.remove("mainActivo");
+        horarios.classList.add("bordeBajo");
+
+        calendario.classList.remove("mainActivo");
+        calendario.classList.add("bordeBajo");
+
+        inicializarLoginButton();
+    
+
+    });
+}
 //Comprueba si existen antes de ejecutar el código para evitar errores
-if (horarios && calendario && notificaciones && iniciarSesionA){
+if (horarios && calendario && notificaciones){
 
     //Agrega un evento cuando se carga el DOM
     document.addEventListener("DOMContentLoaded", async () => {
@@ -72,39 +95,38 @@ if (horarios && calendario && notificaciones && iniciarSesionA){
         calendario.classList.add("bordeBajo");
 
         //Inicializa funciones que requieren de elementos de notificaciones.php
-        inicializarAgregarNotificaciones();
-
-        subopcionesGrupos();
-
-        inicializarExpandirNotificaciones();
-
-        inicializarAgregarUsuario();
+        inicializadorNotificaciones();
 
     });
 
-    horarios.addEventListener("click", async () =>{
+    horarios.addEventListener("click", async (event) => {
+    event.preventDefault(); 
 
-        const respuestaHorarios = await fetch ("horarios.php");
-
-        const horarioTexto = await respuestaHorarios.text();
-
-        indexMain.innerHTML = horarioTexto;
-
-        notificaciones.classList.remove("mainActivo");
-        notificaciones.classList.add("bordeBajo");
-
-        horarios.classList.add("mainActivo");
-        horarios.classList.remove("bordeBajo");
-
-        calendario.classList.remove("mainActivo");
-        calendario.classList.add("bordeBajo");
-
-
+    //guarda el contenido e incluye las cookies de la sesion
+    const respuesta = await fetch('horarios.php', {
+        credentials: 'same-origin'
     });
+
+    const textoRespuesta = await respuesta.text();
+    indexMain.innerHTML = textoRespuesta;
+
+    notificaciones.classList.remove("mainActivo");
+    notificaciones.classList.add("bordeBajo");
+
+    horarios.classList.add("mainActivo");
+    horarios.classList.remove("bordeBajo");
+
+    calendario.classList.remove("mainActivo");
+    calendario.classList.add("bordeBajo");
+    
+    });
+
 
     calendario.addEventListener("click", async () => {
 
-        const respuestaCalendario = await fetch ("calendario.php");
+        const respuestaCalendario = await fetch('calendario.php', {
+        credentials: 'same-origin'
+        });
 
         const calendarioTexto = await respuestaCalendario.text();
 
@@ -138,37 +160,11 @@ if (horarios && calendario && notificaciones && iniciarSesionA){
         calendario.classList.remove("mainActivo");
         calendario.classList.add("bordeBajo");
 
-        inicializarAgregarNotificaciones();
-
-        subopcionesGrupos();
-
-        inicializarExpandirNotificaciones();
-
-        inicializarAgregarUsuario();
+        inicializadorNotificaciones();
 
     });
 
-    iniciarSesionA.addEventListener("click", async () => {
-        
-        const respuestaLogin = await fetch("login.php");
-
-        const loginTexto = await respuestaLogin.text();
-
-        indexMain.innerHTML = loginTexto;
-
-        notificaciones.classList.remove("mainActivo");
-        notificaciones.classList.add("bordeBajo");
-
-        horarios.classList.remove("mainActivo");
-        horarios.classList.add("bordeBajo");
-
-        calendario.classList.remove("mainActivo");
-        calendario.classList.add("bordeBajo");
-
-        inicializarLoginButton();
-
-
-    });
+    
         
 }
 else {
@@ -322,12 +318,11 @@ function inicializarExpandirNotificaciones() {
 function inicializarAgregarUsuario() {
 
     const agregarUsuario = document.querySelector("#userPlus");
-    
+    if (agregarUsuario){
     //fetch para agregar usuario
     agregarUsuario.addEventListener("click", async () => {
 
         const respuestaAgregarUsuario = await fetch ("crearUsuario.php");
-
         const agregarUsuarioTexto = await respuestaAgregarUsuario.text();
 
         indexMain.innerHTML = agregarUsuarioTexto;
@@ -341,14 +336,15 @@ function inicializarAgregarUsuario() {
         calendario.classList.remove("mainActivo");
         calendario.classList.add("bordeBajo");
 
-        inicializarVolverCrearUsuario();
+        inicializarVolverNotificaciones();
     });
-    
+    }
+}
     //fetch para que vuelva al main de notificaciones desde crear usuario
-    function inicializarVolverCrearUsuario() {
-        const volverCrearUsuario = document.querySelector("#volverCrearUsuario");
+    function inicializarVolverNotificaciones() {
+        const volverNotificacion = document.querySelector("#volverNotificacion");
 
-        volverCrearUsuario.addEventListener("click", async () => {
+        volverNotificacion.addEventListener("click", async () => {
 
             const respuestaNotificaciones = await fetch ("notificaciones.php");
 
@@ -365,19 +361,13 @@ function inicializarAgregarUsuario() {
             calendario.classList.remove("mainActivo");
             calendario.classList.add("bordeBajo");
 
-            inicializarAgregarNotificaciones();
-
-            subopcionesGrupos();
-
-            inicializarExpandirNotificaciones();
-
-            inicializarAgregarUsuario();
+            inicializadorNotificaciones();
 
         });
     }
 
 
-}
+
 
 const BotonInsertarNotificacion = document.querySelector("#AgregarNotificacion");
 
@@ -434,4 +424,197 @@ document.addEventListener("click", async (event) => {
         }
     }
 });
+
+const BotonAgregarEvento = document.querySelector("#AgregarEvento");
+
+document.addEventListener("click", async (event) => {
+    //comprueba que se haya pulsado en el boton agregar notificacion
+    if (event.target && event.target.id === "AgregarEvento") {
+        event.preventDefault();
+        //busca los elementos insertados y saca espacios 
+        const NombreNotificacion = document.querySelector("#NombreNotificacion").value.trim();
+        const DescripcionNotificacion = document.querySelector("#DescripcionNotificacion").value.trim();
+        const PublicoNotificacion = document.querySelector("#PublicoNotificacion").value;
+        const FechaNotificacion = new Date().toISOString().split('T')[0];
+        const FechaI = document.querySelector("#FechaInicioEvento").value;
+        const FechaF = document.querySelector("#FechaFinEvento").value;
+        const HoraI = document.querySelector("#HoraInicioEvento").value;
+        const HoraF = document.querySelector("#HoraFinEvento").value;
+
+        //valida que los campos no esten vacios
+        if(!NombreNotificacion || !DescripcionNotificacion || !PublicoNotificacion || !FechaI || !FechaF || !HoraI || !HoraF){
+            alert("Complete todos los campos porfavor");
+            return;
+        }
+
+        //guarda los datos en una variable "array"
+        const datos = {
+            nombre: NombreNotificacion,
+            descripcion: DescripcionNotificacion,
+            publico: PublicoNotificacion,
+            fecha: FechaNotificacion,
+            fechaI: FechaI,
+            fechaF: FechaF,
+            horaI: HoraI,
+            horaF: HoraF
+        };
+
+        try {
+            //peticion que envia los datos de forma sigilosa con el fetch con formato json
+            const respuesta = await fetch('agregarEvento.php', {
+                //envia
+                method: 'POST',
+                //instruccion de la peticion web, avisa en que formato viaja la informacion
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                //transforma la variable datos en un texto plano (json)
+                body: JSON.stringify(datos)
+            });
+            //recibe la respuesta de la db y lo guarda dentro de una variable
+            const textoRespuesta = await respuesta.text();
+            //transforma la respuesta json, y la transforma en un objeto javascript
+            const resultado = JSON.parse(textoRespuesta);
+            
+            //segun el resultado decide que hacer
+            if (resultado.success) {
+                alert("¡Evento agregado con éxito!");
+                location.reload(); //reinicia la pagina para que sea visualice el nuevo evento
+            } else {
+                alert("Error al agregar: " + resultado.mensaje);
+            }
+        } catch (error) {
+            console.error("Error en la petición:", error);
+            alert("Hubo un error de conexión con el servidor.");
+        }
+    }
+});
+
+
+
+
+const btnagregarUsuario = document.querySelector("#AgregarUsuario");
+
+document.addEventListener("click", async (event) => {
+    
+    //comprueba que se haya pulsado en el boton agregar usuario
+    if (event.target && event.target.id === "AgregarUsuario") {
+        event.preventDefault(); 
+        //busca los elementos insertados y saca espacios 
+        const Email = document.querySelector("#email").value.trim();
+        const NombreUsuario = document.querySelector("#NombreUsuario").value.trim();
+        const ContraseniaUsuario = document.querySelector("#ContraseniaUsuario").value;
+        const Rol = document.querySelector("#RolUser").value;
+
+        //valida que los campos no esten vacios
+        if(!Email || !NombreUsuario || !ContraseniaUsuario || !Rol){
+            alert("Complete todos los campos porfavor");
+            return;
+        }
+
+        //guarda los datos en una variable "array"
+        const datos = {
+            email: Email,
+            nombre: NombreUsuario,
+            contrasenia: ContraseniaUsuario,
+            rol: Rol
+        };
+
+        try {
+            //peticion que envia los datos de forma sigilosa con el fetch con formato json
+            const respuesta = await fetch('crearUsuario.php', {
+                //envia
+                method: 'POST',
+                //instruccion de la peticion web, avisa en que formato viaja la informacion
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                //transforma la variable datos en un texto plano (json)
+                body: JSON.stringify(datos)
+            });
+            //recibe la respuesta de la db y lo guarda dentro de una variable
+            const textoRespuesta = await respuesta.text();
+            //transforma la respuesta json, y la transforma en un objeto javascript
+            const resultado = JSON.parse(textoRespuesta);
+            
+            //segun el resultado decide que hacer
+            if (resultado.success) {
+                alert("¡Usuario agregado con éxito!");
+                location.reload(); //reinicia la pagina para que sea visualice la nueva notificacion
+            } else {
+                alert("Error al agregar: " + resultado.mensaje);
+            }
+        } catch (error) {
+            console.error("Error en la petición:", error);
+            alert("Hubo un error de conexión con el servidor.");
+        }
+    }
+});
+
+
+
+
+function inicializarFotosNotificaciones() {
+    const imagenes = document.querySelectorAll('.notificacionImg');
+
+    const imagenesLocales = [
+        'static/img/fotoNotificaciones1.jpeg',
+        'static/img/fotoNotificaciones2.jpeg',
+        'static/img/fotoNotificaciones3.jpeg',
+        'static/img/fotoNotificaciones4.jpeg',
+        'static/img/fotoNotificaciones5.jpeg',
+        'static/img/fotoNotificaciones6.jpeg',
+        'static/img/fotoNotificaciones7.jpeg',
+        'static/img/fotoNotificaciones8.jpeg',
+        'static/img/fotoNotificaciones9.jpeg',
+        'static/img/fotoNotificaciones10.jpeg',
+    ];
+
+    imagenes.forEach((img) => {
+        console.log("a");
+
+        const randomImg = imagenesLocales[Math.floor(Math.random() * imagenesLocales.length)];
+        img.src = randomImg;
+
+    });
+}
+
+function inicializarAgregarEvento() {
+
+    const calendarioPlus = document.querySelector("#calendarioPlus");
+
+    if(calendarioPlus){
+
+        calendarioPlus.addEventListener("click", async () => {
+            
+            const respuestaAgregarEvento = await fetch ("agregarEvento.php");
+
+            const agregarEventoTexto = await respuestaAgregarEvento.text();
+
+            indexMain.innerHTML = agregarEventoTexto;
+
+            inicializarVolverNotificaciones();
+
+        });
+
+        
+
+    }
+}
+
+function inicializadorNotificaciones() {
+
+    inicializarAgregarNotificaciones();
+
+    subopcionesGrupos();
+
+    inicializarExpandirNotificaciones();
+
+    inicializarAgregarUsuario();
+
+    inicializarFotosNotificaciones();
+
+    inicializarAgregarEvento();
+        
+}
 

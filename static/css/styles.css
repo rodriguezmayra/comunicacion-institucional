@@ -53,6 +53,7 @@ header {
     /*Estilos de la fuente del botón de iniciar sesión en el header*/
     font-family: 'Montserrat', sans-serif;
     font-size: 0.9em;
+    text-decoration: none;
 }
 
 #iniciarSesionA:hover{
@@ -314,23 +315,19 @@ header img{
     box-shadow: 0 0 7px 1px #e1e8eb;
 }
 
-.fa-newspaper{
-    background-color: #ffffff;
-    box-shadow: 0 0 7px 1px #e1e8eb;
-    border-radius: 5px;
+#newpapers:hover{
+    cursor:pointer;
     font-size: 1.1em;
-    padding:0.4%;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    transition: all 0.4s ease-in-out;
 }
 
-.fa-newspaper:hover{
+#userPlus:hover{
     cursor:pointer;
-    background-color: #dfe6e9;
+    font-size: 1.1em;
+}
+
+#calendarioPlus:hover{
+    cursor:pointer;
+    font-size: 1.1em;
 }
 
 #mainNotificaciones{  
@@ -377,15 +374,16 @@ header img{
 
 .notificacion {
 
-    padding-left:5%;
-    padding-right:7%;
+    padding-left:3%;
+    padding-right: 0.5%;
     padding-top: 1%;
     padding-bottom:1%;
-    width: 40vw;
+    width: 46vw;
     height: 30vh;
 
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    align-items: center;
     gap: 0;
 
     border-radius: 15px;
@@ -398,9 +396,29 @@ header img{
    
 }
 
+.notificacionTexto {
+    display: flex;
+    flex-direction: column;
+    width: 70%;
+    height: 100%;
+    overflow: hidden;
+    flex: 1;
+    min-width: 0;
+    padding-right: 1%;
+}
+
+.notificacionImg {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 10px;
+    flex-shrink: 0;
+    box-shadow: 0 0 7px 1px #ebedee;
+}
 
 
-.notificacion > p {
+
+.notificacion p {
 
     display: -webkit-box;
     -webkit-box-orient: vertical;
@@ -416,9 +434,9 @@ header img{
 }
 
 .notificacion h5 {
-
     margin-top: 0.5%;
     margin-bottom: 0.5%;
+    color:#383434;
 }
 
 .leerMas {
@@ -548,7 +566,7 @@ header img{
 
 }
 
-.notificacion.expandida > p {
+.notificacion.expandida p {
     display: block !important;
     -webkit-line-clamp: unset !important;
     overflow: visible !important;
@@ -947,7 +965,7 @@ header img{
   
 }    
 
-#volverCrearUsuario{
+#volverNotificacion{
     margin-bottom: 3%;
     margin-right: 100%;
 
@@ -955,7 +973,7 @@ header img{
 
 }
 
-#volverCrearUsuario:hover{
+#volverNotificacion:hover{
     cursor:pointer;
 
     font-size: 1.45em;
@@ -1010,3 +1028,112 @@ header img{
     background-color: #061e31;
 }
 
+/*-------------------------------------------------------------------*/
+
+/*ESTILOS AGREGAR EVENTO*/
+
+#mainAgregarEvento {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#contenedorAgregarEvento {
+
+    background-color: #ffffff;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    border-radius: 15px;
+    width: 80%;
+    margin-top: 5%;
+   
+    padding-left: 3%;
+    padding-right:3%;
+    padding-bottom:3%;
+    padding-top:1%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    font-family: 'Montserrat', sans-serif;
+  
+}
+
+#volverNotificacion{
+    margin-bottom: 3%;
+    margin-right: 100%;
+
+    font-size: 1.4em;
+
+}
+
+#volverNotificacion:hover{
+    cursor:pointer;
+
+    font-size: 1.45em;
+}
+
+
+#contenedorAgregarEvento label {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #475569;
+    margin-bottom: 6px;
+}
+
+
+#contenedorAgregarEvento input {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    border: 1.5px solid #cbd5e1;
+    border-radius: 8px;
+    font-size: 15px;
+    color: #0B3B60;
+    font-family: 'Open Sans', sans-serif;
+}
+
+#contenedorAgregarEvento textarea {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    border: 1.5px solid #cbd5e1;
+    border-radius: 8px;
+    font-size: 15px;
+    color: #0B3B60;
+    font-family: 'Open Sans', sans-serif;
+}
+
+#AgregarEvento {
+    background-color: #0B3B60;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 14px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+#AgregarEvento:hover {
+    background-color: #061e31;
+}
+
+#mensaje{
+
+    margin-top:0;
+    margin-bottom:0.5%;
+    padding:0;
+    width: 30vw;
+    font-size: 0.9em;
+
+}
+
+#loginButton {
+
+    margin-bottom:0 !important;
+
+}

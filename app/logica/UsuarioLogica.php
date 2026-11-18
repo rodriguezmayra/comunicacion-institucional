@@ -51,7 +51,7 @@ class UsuarioLogica {
 
     }
 
-    function crearUsuario (int $correoElectronico, string $nombre, string $contrasenia, string $rol): bool{
+    function crearUsuario (string $correoElectronico, string $nombre, string $contrasenia, string $rol): bool{
 
         $conexion = Conexion::getInstancia();
 

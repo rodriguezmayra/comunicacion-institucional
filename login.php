@@ -19,6 +19,10 @@
 
             <input type="password" id="contrasenia" name="contrasenia" required>
 
+             <button id="loginButton" type="submit">
+                Iniciar Sesión
+            </button>
+
             <?php
 
                 $accion = $_GET["accion"] ?? "";
@@ -31,9 +35,9 @@
 
             ?>
 
-             <button id="loginButton" type="submit">
-                Iniciar Sesión
-            </button>
+           
+
+             
 
 
         </form>
