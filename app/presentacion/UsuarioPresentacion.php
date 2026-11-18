@@ -1,7 +1,19 @@
 <?php
 
 require_once __DIR__ . '/../logica/UsuarioLogica.php';
+class UsuarioPresentacion{
+    
+    private UsuarioLogica $UsuarioL;
 
+    public function __construct() {
+       $this->UsuarioL = new UsuarioLogica();
+    }
+
+    public function CrearUsuario(String $correoElectronico, String $nombre, String $contrasenia, String $Rol): bool{
+        return this->UsuarioL->CrearUsuario($correoElectronico,$nombre,$contrasenia,$Rol);
+    }
+
+}
 $servicioUsuario = new UsuarioLogica ();
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
