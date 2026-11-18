@@ -53,6 +53,7 @@ header {
     /*Estilos de la fuente del botón de iniciar sesión en el header*/
     font-family: 'Montserrat', sans-serif;
     font-size: 0.9em;
+    text-decoration: none;
 }
 
 #iniciarSesionA:hover{
@@ -320,6 +321,11 @@ header img{
 }
 
 #userPlus:hover{
+    cursor:pointer;
+    font-size: 1.1em;
+}
+
+#calendarioPlus:hover{
     cursor:pointer;
     font-size: 1.1em;
 }
@@ -1116,4 +1122,18 @@ header img{
     background-color: #061e31;
 }
 
+#mensaje{
 
+    margin-top:0;
+    margin-bottom:0.5%;
+    padding:0;
+    width: 30vw;
+    font-size: 0.9em;
+
+}
+
+#loginButton {
+
+    margin-bottom:0 !important;
+
+}
