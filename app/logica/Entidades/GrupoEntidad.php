@@ -1,17 +1,17 @@
  <?php 
 
-class GrupoEntidad extends OrientacionEntidad{
+class GrupoEntidad{
 
     private string $nombreGrupo;
     private string $turno;
+    private string $nombreOrientacion;
 
     
 
-    public function __construct (string $nombreGrupo, string $turno, string $nombre) {
+    public function __construct (string $nombreGrupo, string $turno, string $nombreOrientacion) {
         $this->nombreGrupo = $nombreGrupo;
         $this->turno = $turno;
-        parent::__construct($nombre);
-    
+        $this->nombreOrientacion = $nombreOrientacion;
     }
 
     public function getNombreGrupo (): string {
@@ -28,6 +28,12 @@ class GrupoEntidad extends OrientacionEntidad{
 
     public function setTurno (string $turno): void {
         $this->turno = $turno;
+    }
+    public function getNombreOrientacion(): string{
+        return $this->nombreOrientacion;
+    }
+    public function setNombreOrientacion(string $nombreOrientacion){
+        $this->nombreOrientacion = $nombreOrientacion();
     }
 
 }
