@@ -74,6 +74,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             ?>
             <a id="newpapers"><i class="fa-solid fa-file-circle-plus"></i></a>
             <a id="userPlus"><i class="fa-solid fa-user-plus"></i></a>
+            <a id="calendarioPlus"><i class="fa-solid fa-calendar-plus"></i></a>
             <?php 
             endif;
             ?>

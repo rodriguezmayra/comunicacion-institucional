@@ -95,15 +95,7 @@ if (horarios && calendario && notificaciones){
         calendario.classList.add("bordeBajo");
 
         //Inicializa funciones que requieren de elementos de notificaciones.php
-        inicializarAgregarNotificaciones();
-
-        subopcionesGrupos();
-
-        inicializarExpandirNotificaciones();
-
-        inicializarAgregarUsuario();
-
-        inicializarFotosNotificaciones();
+        inicializadorNotificaciones();
 
     });
 
@@ -168,15 +160,7 @@ if (horarios && calendario && notificaciones){
         calendario.classList.remove("mainActivo");
         calendario.classList.add("bordeBajo");
 
-        inicializarAgregarNotificaciones();
-
-        subopcionesGrupos();
-
-        inicializarExpandirNotificaciones();
-
-        inicializarAgregarUsuario();
-
-        inicializarFotosNotificaciones();
+        inicializadorNotificaciones();
 
     });
 
@@ -339,7 +323,6 @@ function inicializarAgregarUsuario() {
     agregarUsuario.addEventListener("click", async () => {
 
         const respuestaAgregarUsuario = await fetch ("crearUsuario.php");
-
         const agregarUsuarioTexto = await respuestaAgregarUsuario.text();
 
         indexMain.innerHTML = agregarUsuarioTexto;
@@ -353,14 +336,15 @@ function inicializarAgregarUsuario() {
         calendario.classList.remove("mainActivo");
         calendario.classList.add("bordeBajo");
 
-        inicializarVolverCrearUsuario();
+        inicializarVolverNotificaciones();
     });
     }
+}
     //fetch para que vuelva al main de notificaciones desde crear usuario
-    function inicializarVolverCrearUsuario() {
-        const volverCrearUsuario = document.querySelector("#volverCrearUsuario");
+    function inicializarVolverNotificaciones() {
+        const volverNotificacion = document.querySelector("#volverNotificacion");
 
-        volverCrearUsuario.addEventListener("click", async () => {
+        volverNotificacion.addEventListener("click", async () => {
 
             const respuestaNotificaciones = await fetch ("notificaciones.php");
 
@@ -377,19 +361,13 @@ function inicializarAgregarUsuario() {
             calendario.classList.remove("mainActivo");
             calendario.classList.add("bordeBajo");
 
-            inicializarAgregarNotificaciones();
-
-            subopcionesGrupos();
-
-            inicializarExpandirNotificaciones();
-
-            inicializarAgregarUsuario();
+            inicializadorNotificaciones();
 
         });
     }
 
 
-}
+
 
 const BotonInsertarNotificacion = document.querySelector("#AgregarNotificacion");
 
@@ -450,8 +428,10 @@ document.addEventListener("click", async (event) => {
 const btnagregarUsuario = document.querySelector("#AgregarUsuario");
 
 document.addEventListener("click", async (event) => {
+    
     //comprueba que se haya pulsado en el boton agregar notificacion
     if (event.target && event.target.id === "AgregarUsuario") {
+        event.preventDefault(); 
         //busca los elementos insertados y saca espacios 
         const Email = document.querySelector("#email").value.trim();
         const NombreUsuario = document.querySelector("#NombreUsuario").value.trim();
@@ -474,7 +454,7 @@ document.addEventListener("click", async (event) => {
 
         try {
             //peticion que envia los datos de forma sigilosa con el fetch con formato json
-            const respuesta = await fetch('notificaciones.php', {
+            const respuesta = await fetch('crearUsuario.php', {
                 //envia
                 method: 'POST',
                 //instruccion de la peticion web, avisa en que formato viaja la informacion
@@ -491,7 +471,7 @@ document.addEventListener("click", async (event) => {
             
             //segun el resultado decide que hacer
             if (resultado.success) {
-                alert("¡Notificación agregada con éxito!");
+                alert("¡Usuario agregado con éxito!");
                 location.reload(); //reinicia la pagina para que sea visualice la nueva notificacion
             } else {
                 alert("Error al agregar: " + resultado.mensaje);
@@ -529,5 +509,44 @@ function inicializarFotosNotificaciones() {
         img.src = randomImg;
 
     });
+}
+
+function inicializarAgregarEvento() {
+
+    const calendarioPlus = document.querySelector("#calendarioPlus");
+
+    if(calendarioPlus){
+
+        calendarioPlus.addEventListener("click", async () => {
+            
+            const respuestaAgregarEvento = await fetch ("agregarEvento.php");
+
+            const agregarEventoTexto = await respuestaAgregarEvento.text();
+
+            indexMain.innerHTML = agregarEventoTexto;
+
+            inicializarVolverNotificaciones();
+
+        });
+
+        
+
+    }
+}
+
+function inicializadorNotificaciones() {
+
+    inicializarAgregarNotificaciones();
+
+    subopcionesGrupos();
+
+    inicializarExpandirNotificaciones();
+
+    inicializarAgregarUsuario();
+
+    inicializarFotosNotificaciones();
+
+    inicializarAgregarEvento();
+        
 }
 

@@ -10,10 +10,11 @@ class UsuarioPresentacion{
     }
 
     public function CrearUsuario(String $correoElectronico, String $nombre, String $contrasenia, String $Rol): bool{
-        return this->UsuarioL->CrearUsuario($correoElectronico,$nombre,$contrasenia,$Rol);
+        return $this->UsuarioL->CrearUsuario($correoElectronico,$nombre,$contrasenia,$Rol);
     }
 
 }
+if (realpath(__FILE__) === realpath($_SERVER['SCRIPT_FILENAME'])) {
 $servicioUsuario = new UsuarioLogica ();
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
@@ -68,7 +69,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
 }
 
-
-
+}
 
 ?>

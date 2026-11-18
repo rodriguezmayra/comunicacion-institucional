@@ -1,5 +1,6 @@
 <?php
-require_once __DIR__ . 'app/presentacion/UsuarioPresentacion.php';
+require_once __DIR__ . '/app/presentacion/UsuarioPresentacion.php';
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     //avisa que los datos van en formato json
     header('Content-Type: application/json');
@@ -18,8 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $nombre = $datos['nombre'];
             $contrasenia = $datos['contrasenia'];
             $rol = $datos['rol'];
-            
-            
+
             //crea el objeto en la clase prsentacion e inserta los datos recibidos
             $pre = new UsuarioPresentacion();
             //boolean dependiendo si se guardan de manera correcta los datos
