@@ -72,15 +72,7 @@ if (horarios && calendario && notificaciones && iniciarSesionA){
         calendario.classList.add("bordeBajo");
 
         //Inicializa funciones que requieren de elementos de notificaciones.php
-        inicializarAgregarNotificaciones();
-
-        subopcionesGrupos();
-
-        inicializarExpandirNotificaciones();
-
-        inicializarAgregarUsuario();
-
-        inicializarFotosNotificaciones();
+        inicializadorNotificaciones();
 
     });
 
@@ -145,15 +137,7 @@ if (horarios && calendario && notificaciones && iniciarSesionA){
         calendario.classList.remove("mainActivo");
         calendario.classList.add("bordeBajo");
 
-        inicializarAgregarNotificaciones();
-
-        subopcionesGrupos();
-
-        inicializarExpandirNotificaciones();
-
-        inicializarAgregarUsuario();
-
-        inicializarFotosNotificaciones();
+        inicializadorNotificaciones();
 
     });
 
@@ -350,14 +334,15 @@ function inicializarAgregarUsuario() {
         calendario.classList.remove("mainActivo");
         calendario.classList.add("bordeBajo");
 
-        inicializarVolverCrearUsuario();
+        inicializarVolverNotificaciones();
     });
     }
+}
     //fetch para que vuelva al main de notificaciones desde crear usuario
-    function inicializarVolverCrearUsuario() {
-        const volverCrearUsuario = document.querySelector("#volverCrearUsuario");
+    function inicializarVolverNotificaciones() {
+        const volverNotificacion = document.querySelector("#volverNotificacion");
 
-        volverCrearUsuario.addEventListener("click", async () => {
+        volverNotificacion.addEventListener("click", async () => {
 
             const respuestaNotificaciones = await fetch ("notificaciones.php");
 
@@ -374,19 +359,13 @@ function inicializarAgregarUsuario() {
             calendario.classList.remove("mainActivo");
             calendario.classList.add("bordeBajo");
 
-            inicializarAgregarNotificaciones();
-
-            subopcionesGrupos();
-
-            inicializarExpandirNotificaciones();
-
-            inicializarAgregarUsuario();
+            inicializadorNotificaciones();
 
         });
     }
 
 
-}
+
 
 const BotonInsertarNotificacion = document.querySelector("#AgregarNotificacion");
 
@@ -469,5 +448,44 @@ function inicializarFotosNotificaciones() {
         img.src = randomImg;
 
     });
+}
+
+function inicializarAgregarEvento() {
+
+    const calendarioPlus = document.querySelector("#calendarioPlus");
+
+    if(calendarioPlus){
+
+        calendarioPlus.addEventListener("click", async () => {
+            
+            const respuestaAgregarEvento = await fetch ("agregarEvento.php");
+
+            const agregarEventoTexto = await respuestaAgregarEvento.text();
+
+            indexMain.innerHTML = agregarEventoTexto;
+
+            inicializarVolverNotificaciones();
+
+        });
+
+        
+
+    }
+}
+
+function inicializadorNotificaciones() {
+
+    inicializarAgregarNotificaciones();
+
+    subopcionesGrupos();
+
+    inicializarExpandirNotificaciones();
+
+    inicializarAgregarUsuario();
+
+    inicializarFotosNotificaciones();
+
+    inicializarAgregarEvento();
+        
 }
 

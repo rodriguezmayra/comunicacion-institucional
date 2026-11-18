@@ -2,7 +2,7 @@
 
         <form id="contenedorAgregarUsuario">
 
-            <a id="volverCrearUsuario"><i class="fa-solid fa-arrow-left"></i></a>
+            <a id="volverNotificacion"><i class="fa-solid fa-arrow-left"></i></a>
 
             <label id="IDlabel" for="ID">
                 CorreoElectronico:
