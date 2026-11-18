@@ -38,6 +38,8 @@ El acceso a algunas funcionalidades está limitado a ciertos tipos de usuario.
 
 Se sugiere visitar el sitio desde un equipo de escritorio.
 
+**Esta demo no se encuentra actualizada** 
+
 **Credenciales de acceso para pruebas:**
 
 Estudiante:
@@ -51,7 +53,7 @@ Administrativo:
 usuario: `facundo.sosa@correo.com`
 contraseña: `administrativo123`
 
-Aclaración: Este enlace corresponde a una versión de demostración en un servicio de hosting gratuito (InfinityFree), por lo que podría incluir errores que no se encuentren en el desarrollo origina de la aplicación.
+Aclaración: Este enlace corresponde a una versión de demostración en un servicio de hosting gratuito (InfinityFree), por lo que podría incluir errores que no se encuentren en el desarrollo original de la aplicación.
 
 ## Requisitos previos del sistema
 
