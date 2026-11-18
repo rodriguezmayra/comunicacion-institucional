@@ -425,11 +425,79 @@ document.addEventListener("click", async (event) => {
     }
 });
 
+const BotonAgregarEvento = document.querySelector("#AgregarEvento");
+
+document.addEventListener("click", async (event) => {
+    //comprueba que se haya pulsado en el boton agregar notificacion
+    if (event.target && event.target.id === "AgregarEvento") {
+        event.preventDefault();
+        //busca los elementos insertados y saca espacios 
+        const NombreNotificacion = document.querySelector("#NombreNotificacion").value.trim();
+        const DescripcionNotificacion = document.querySelector("#DescripcionNotificacion").value.trim();
+        const PublicoNotificacion = document.querySelector("#PublicoNotificacion").value;
+        const FechaNotificacion = new Date().toISOString().split('T')[0];
+        const FechaI = document.querySelector("#FechaInicioEvento").value;
+        const FechaF = document.querySelector("#FechaFinEvento").value;
+        const HoraI = document.querySelector("#HoraInicioEvento").value;
+        const HoraF = document.querySelector("#HoraFinEvento").value;
+
+        //valida que los campos no esten vacios
+        if(!NombreNotificacion || !DescripcionNotificacion || !PublicoNotificacion || !FechaI || !FechaF || !HoraI || !HoraF){
+            alert("Complete todos los campos porfavor");
+            return;
+        }
+
+        //guarda los datos en una variable "array"
+        const datos = {
+            nombre: NombreNotificacion,
+            descripcion: DescripcionNotificacion,
+            publico: PublicoNotificacion,
+            fecha: FechaNotificacion,
+            fechaI: FechaI,
+            fechaF: FechaF,
+            horaI: HoraI,
+            horaF: HoraF
+        };
+
+        try {
+            //peticion que envia los datos de forma sigilosa con el fetch con formato json
+            const respuesta = await fetch('agregarEvento.php', {
+                //envia
+                method: 'POST',
+                //instruccion de la peticion web, avisa en que formato viaja la informacion
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                //transforma la variable datos en un texto plano (json)
+                body: JSON.stringify(datos)
+            });
+            //recibe la respuesta de la db y lo guarda dentro de una variable
+            const textoRespuesta = await respuesta.text();
+            //transforma la respuesta json, y la transforma en un objeto javascript
+            const resultado = JSON.parse(textoRespuesta);
+            
+            //segun el resultado decide que hacer
+            if (resultado.success) {
+                alert("¡Evento agregado con éxito!");
+                location.reload(); //reinicia la pagina para que sea visualice el nuevo evento
+            } else {
+                alert("Error al agregar: " + resultado.mensaje);
+            }
+        } catch (error) {
+            console.error("Error en la petición:", error);
+            alert("Hubo un error de conexión con el servidor.");
+        }
+    }
+});
+
+
+
+
 const btnagregarUsuario = document.querySelector("#AgregarUsuario");
 
 document.addEventListener("click", async (event) => {
     
-    //comprueba que se haya pulsado en el boton agregar notificacion
+    //comprueba que se haya pulsado en el boton agregar usuario
     if (event.target && event.target.id === "AgregarUsuario") {
         event.preventDefault(); 
         //busca los elementos insertados y saca espacios 

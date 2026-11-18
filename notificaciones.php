@@ -37,7 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $publico = $datos['publico'];
             $fecha = $datos['fecha'];
             
-            //crea el objeto en la clase logica e inserta los datos recibidos
+            //crea el objeto en la clase prsentacion e inserta los datos recibidos
             $pre = new NotificacionPresentacion();
             //boolean dependiendo si se guardan de manera correcta los datos
             $resultado = $pre->crearNotificacion($identificador, $nombre, $descripcion, $publico, $fecha);

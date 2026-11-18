@@ -2,23 +2,29 @@
 require_once 'app/logica/Entidades/NotificacionEntidad.php';
 
 class EventoEntidad extends NotificacionEntidad {
-    private int $identificador;
     private DateTimeImmutable $horaInicio;
-    private ?DateTimeImmutable $horaFinal;
+    private DateTimeImmutable $horaFinal;
     private string $fechaInicio;
-    private ?string $fechaFinal;
-    private string $nombreNotificacion;
-    
+    private string $fechaFinal;
 
-
-    public function __construct(int $identificador, DateTimeImmutable $horaInicio, ?DateTimeImmutable $horaFinal, string $fechaInicio, string $fechaFinal, string $nombreNotificacion) {
-    $this->identificador = $identificador;
-    $this->horaInicio = $horaInicio;
-    $this->horaFinal = $horaFinal;
-    $this->fechaInicio = $fechaInicio;
-    $this->fechaFinal = $fechaFinal;
-    $this->nombreNotificacion = $nombreNotificacion;
-}
+    public function __construct(
+        int $identificador,
+        string $nombre,
+        string $descripcion= "",
+        string $publico= "",
+        string $fecha= "",
+        DateTimeImmutable $horaInicio,
+        DateTimeImmutable $horaFinal,
+        string $fechaInicio,
+        string $fechaFinal
+    ) {
+        
+        parent::__construct($identificador, $nombre, $descripcion, $publico, $fecha);
+        $this->horaInicio = $horaInicio;
+        $this->horaFinal = $horaFinal;
+        $this->fechaInicio = $fechaInicio;
+        $this->fechaFinal = $fechaFinal;
+    }
     #[Override]
     public function getIdentificador(): int
     {
@@ -26,7 +32,7 @@ class EventoEntidad extends NotificacionEntidad {
     }
 
     public function getNombreNotificacion(): string {
-    return $this->nombreNotificacion;
+    return parent::getNombre();
     }
 
     public function getHoraInicio(): DateTimeImmutable

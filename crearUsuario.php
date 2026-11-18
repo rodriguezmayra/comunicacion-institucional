@@ -40,6 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     exit; 
 }
 ?>
+
 <main id="mainAuser">
 
     <form id="contenedorAgregarUsuario">

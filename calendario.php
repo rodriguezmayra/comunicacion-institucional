@@ -88,11 +88,12 @@ echo "</td>";
 
                         $contenido .= '<div class = "eventos">' ;
                         $contenido .= '<h5>' .($evento->getNombreNotificacion()) .'</h5>';
+                        $contenido .= '</div>';
                     }
 
                 }
 
-                $contenido .= '</div>';
+                
                 $contenido .= '</td>';
                 echo $contenido;
 
