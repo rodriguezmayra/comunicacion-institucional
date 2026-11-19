@@ -84,7 +84,11 @@ header img{
 
 }
 
-
+#nombrePagina{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
 
 #nombrePagina h1{      
     /*Posición del <h1> dentro del header*/
@@ -95,7 +99,7 @@ header img{
 
     /*Diseño del <h1> dentro del header*/
     font-family: 'Montserrat', sans-serif;
-    font-size: 3em;
+    font-size: 1.4em;
     color: white;
 }
 

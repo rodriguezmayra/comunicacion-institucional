@@ -41,8 +41,8 @@ session_start();
         <img src="/comunicacion-institucional/static/img/logo.png" alt="Logo del sitio">
 
         <div id="nombrePagina">
-        <h1>UTU</h1>
-        <h3>Comunicación Institucional</h3>
+        
+        <h1>Comunicación Institucional</h1>
         </div>
 
         <div id="navInteractivo">
