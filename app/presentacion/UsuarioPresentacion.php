@@ -13,6 +13,11 @@ class UsuarioPresentacion{
         return $this->UsuarioL->CrearUsuario($correoElectronico,$nombre,$contrasenia,$Rol);
     }
 
+    public function obtenerGrupoUsuario(?string $correo): ?string
+    {
+        return $this->UsuarioL->obtenerGrupoUsuario($correo);
+    }
+
 }
 // Solo ejecuta el login si el navegador llama directamente a usuraioPresentacion.php y no con el requiere once
 if (realpath(__FILE__) === realpath($_SERVER['SCRIPT_FILENAME'])) {

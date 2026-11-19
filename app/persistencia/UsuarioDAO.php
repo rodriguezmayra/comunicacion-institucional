@@ -43,6 +43,24 @@ class UsuarioDAO extends DAOGenerico {
             $sentencia->close();
             
         }
+
+    public function obtenerGrupoPorCorreo(string $correo): ?string
+    {
+        $sql = "SELECT nombre_grupo FROM estudiantes WHERE correo_electronico = ? LIMIT 1";
+        $sentencia = $this->conexion->prepare($sql);
+
+        $sentencia->bind_param("s", $correo);
+        $sentencia->execute();
+        $resultado = $sentencia->get_result();
+
+        $grupo = null;
+        if ($fila = $resultado->fetch_assoc()) {
+            $grupo = $fila['nombre_grupo'];
+        }
+
+        $sentencia->close();
+        return $grupo;
+    }
     
 }
 ?>

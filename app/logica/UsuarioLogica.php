@@ -65,6 +65,13 @@ class UsuarioLogica {
         
     }
 
+    public function obtenerGrupoUsuario(string $correo): ?string
+    {
+        $correoLimpio = trim($correo);
+
+        return $this->usuarioDAO->obtenerGrupoPorCorreo($correoLimpio);
+    }
+
 
 }
 
